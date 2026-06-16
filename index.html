@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>iKITES Services | Deep-Tech Engineering Studio</title>
   <meta name="description" content="iKITES Services is a deep-tech engineering studio. We turn ideas into working products — agentic AI, computer vision, and embedded systems — backed by a strong research bench." />
+  <meta name="version" content="1.3.0" />
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="assets/img/favicon.png" />
@@ -70,34 +71,89 @@
 
         <div class="hero__visual">
           <div class="hero__panel">
-            <svg class="ascent-glow" style="width:100%;height:100%;" viewBox="0 0 500 400" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="An ascending curve representing growth and lift">
+            <svg class="ascent-glow" style="width:100%;height:100%;" viewBox="0 0 500 400" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" aria-label="A small idea at the bottom rises along an upward curve, gaining research, engineering, and product stages, into a market-ready result at the top">
               <defs>
                 <linearGradient id="lineGradient" x1="0%" y1="100%" x2="100%" y2="0%">
                   <stop offset="0%" stop-color="#1C8D90" />
                   <stop offset="100%" stop-color="#0C3B5F" />
                 </linearGradient>
                 <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-                  <feGaussianBlur stdDeviation="5" result="blur" />
+                  <feGaussianBlur stdDeviation="4" result="blur" />
                   <feComposite in="SourceGraphic" in2="blur" operator="over" />
                 </filter>
+                <radialGradient id="sparkGlow" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#3FE0E0" />
+                  <stop offset="100%" stop-color="#1C8D90" />
+                </radialGradient>
               </defs>
-              <!-- Ascent line -->
-              <path d="M50 350 C 150 350, 250 50, 450 50" stroke="url(#lineGradient)" stroke-width="2" stroke-dasharray="1000" stroke-dashoffset="1000">
-                <animate attributeName="stroke-dashoffset" from="1000" to="0" dur="2.4s" fill="freeze" />
+
+              <!-- Ground the idea starts from -->
+              <line x1="26" y1="350" x2="120" y2="350" stroke="#1C8D90" stroke-width="1.5" opacity="0.4" />
+
+              <!-- The lift trajectory (our engineering) draws itself in -->
+              <path id="ascentPath" d="M62 350 C 170 350, 250 70, 440 62" stroke="url(#lineGradient)" stroke-width="2.5" stroke-dasharray="1000" stroke-dashoffset="1000" fill="none">
+                <animate attributeName="stroke-dashoffset" from="1000" to="0" dur="2.2s" fill="freeze" />
               </path>
-              <!-- Anchor dot -->
-              <circle cx="50" cy="350" r="4" fill="#1C8D90" opacity="0">
-                <animate attributeName="opacity" from="0" to="1" dur="0.5s" fill="freeze" />
-              </circle>
-              <!-- Spark diamond -->
-              <g opacity="0">
-                <path d="M450 35 L465 50 L450 65 L435 50 Z" fill="#26B6B6" filter="url(#glow)" />
-                <animate attributeName="opacity" from="0" to="1" begin="2.0s" dur="0.5s" fill="freeze" />
-                <animateTransform additive="sum" attributeName="transform" type="scale" values="1;1.1;1" dur="2s" repeatCount="indefinite" transform-origin="450 50" />
+
+              <!-- What the idea gains on the way up: each discipline lights up as it climbs -->
+              <g font-family="'IBM Plex Mono', monospace" font-size="12" letter-spacing="0.5" fill="#42474e">
+                <g transform="translate(155 289)">
+                  <g opacity="0">
+                    <animate attributeName="opacity" from="0" to="1" begin="1.5s" dur="0.45s" fill="freeze" />
+                    <animateTransform attributeName="transform" type="scale" from="0.6" to="1" begin="1.5s" dur="0.45s" fill="freeze" />
+                    <circle r="4" fill="#ffffff" stroke="#1C8D90" stroke-width="2" />
+                    <text x="-12" y="4" text-anchor="end">Research</text>
+                  </g>
+                </g>
+                <g transform="translate(238 188)">
+                  <g opacity="0">
+                    <animate attributeName="opacity" from="0" to="1" begin="2.0s" dur="0.45s" fill="freeze" />
+                    <animateTransform attributeName="transform" type="scale" from="0.6" to="1" begin="2.0s" dur="0.45s" fill="freeze" />
+                    <circle r="4" fill="#ffffff" stroke="#1C8D90" stroke-width="2" />
+                    <text x="-12" y="4" text-anchor="end">Engineering</text>
+                  </g>
+                </g>
+                <g transform="translate(329 101)">
+                  <g opacity="0">
+                    <animate attributeName="opacity" from="0" to="1" begin="2.5s" dur="0.45s" fill="freeze" />
+                    <animateTransform attributeName="transform" type="scale" from="0.6" to="1" begin="2.5s" dur="0.45s" fill="freeze" />
+                    <circle r="4" fill="#ffffff" stroke="#1C8D90" stroke-width="2" />
+                    <text x="-12" y="4" text-anchor="end">Product</text>
+                  </g>
+                </g>
               </g>
+
+              <!-- The original idea: a small hollow spark on the ground, quietly pulsing -->
+              <g>
+                <circle cx="62" cy="350" r="7" fill="none" stroke="#1C8D90" stroke-width="2">
+                  <animate attributeName="opacity" values="1;0.45;1" dur="2.2s" repeatCount="indefinite" />
+                </circle>
+                <circle cx="62" cy="350" r="2.5" fill="#0C3B5F" />
+              </g>
+              <text x="62" y="380" text-anchor="middle" fill="#1C8D90" font-family="'IBM Plex Mono', monospace" font-size="13" letter-spacing="0.5">your idea</text>
+
+              <!-- The idea being LIFTED: a glowing point rises along the curve, growing as it climbs -->
+              <circle cx="0" cy="0" r="4" fill="url(#sparkGlow)" filter="url(#glow)" opacity="0">
+                <animate attributeName="opacity" values="0;1;1;1;0" keyTimes="0;0.06;0.5;0.92;1" dur="3.6s" begin="1.1s" repeatCount="indefinite" />
+                <animate attributeName="r" values="3.5;6;9" keyTimes="0;0.55;1" dur="3.6s" begin="1.1s" repeatCount="indefinite" />
+                <animateMotion dur="3.6s" begin="1.1s" repeatCount="indefinite">
+                  <mpath xlink:href="#ascentPath" />
+                </animateMotion>
+              </circle>
+
+              <!-- The elevated result: market-ready -->
+              <g transform="translate(440 62)" opacity="0">
+                <path d="M0 -15 L15 0 L0 15 L-15 0 Z" fill="url(#sparkGlow)" filter="url(#glow)">
+                  <animateTransform attributeName="transform" type="scale" values="1;1.12;1" dur="2.4s" begin="3s" repeatCount="indefinite" />
+                </path>
+                <animate attributeName="opacity" from="0" to="1" begin="3.0s" dur="0.6s" fill="freeze" />
+              </g>
+              <text x="435" y="34" text-anchor="middle" fill="#0C3B5F" font-weight="600" font-family="'IBM Plex Mono', monospace" font-size="13" letter-spacing="0.5" opacity="0">market-ready
+                <animate attributeName="opacity" from="0" to="1" begin="3.2s" dur="0.6s" fill="freeze" />
+              </text>
             </svg>
           </div>
-          <p class="label-md hero__caption">your idea · our engineering · lift</p>
+          <p class="label-md hero__caption">your idea · our engineering · market-ready</p>
         </div>
       </div>
     </section>
@@ -306,6 +362,7 @@
           <span class="brand__suffix">/ SERVICES</span>
         </div>
         <p>© 2024 iKITES Services. Knowledge Innovation Technology EcoSystem. Professional engineering for the high-stakes frontier.</p>
+        <p class="footer__version">v1.3.0 · updated 2026-06-16</p>
       </div>
 
       <div class="footer__col">

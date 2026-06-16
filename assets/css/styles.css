@@ -465,6 +465,12 @@ button { font-family: inherit; cursor: pointer; }
 }
 .footer__about { display: flex; flex-direction: column; gap: 24px; }
 .footer__about p { opacity: .6; max-width: 20rem; font-size: 16px; line-height: 24px; }
+.footer__about .footer__version {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  opacity: .4;
+}
 .footer__brand { display: flex; align-items: center; gap: 10px; }
 .footer__brand .brand__logo { height: 38px; }
 .footer__brand .brand__name { color: var(--on-primary); }
@@ -535,6 +541,22 @@ button { font-family: inherit; cursor: pointer; }
 }
 @keyframes underlineDraw { to { transform: scaleX(1); } }
 
+/* Hero visual lifts up from the bottom on load, then gently floats */
+.hero--enter .hero__visual {
+  animation: heroLift 1.1s cubic-bezier(.22, 1, .36, 1) .3s both;
+}
+.hero--enter .hero__panel {
+  animation: heroFloat 7s ease-in-out 1.4s infinite;
+}
+@keyframes heroLift {
+  from { opacity: 0; transform: translateY(64px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes heroFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+
 /* Material symbols base */
 .material-symbols-outlined {
   font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
@@ -600,7 +622,9 @@ button { font-family: inherit; cursor: pointer; }
   .hero--enter .text-muted,
   .hero--enter .hero__title,
   .hero--enter .hero__lead,
-  .hero--enter .hero__actions { animation: none; }
+  .hero--enter .hero__actions,
+  .hero--enter .hero__visual,
+  .hero--enter .hero__panel { animation: none; }
   .hero__title .accent::after { animation: none; transform: scaleX(1); }
   .nav__link::after,
   .reeng__link .material-symbols-outlined { transition: none; }
