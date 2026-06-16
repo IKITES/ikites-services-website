@@ -1,0 +1,21 @@
+# Netlify config for a plain static site (no build step).
+# The whole site lives at the repo root, so we just publish "." as-is.
+
+[build]
+  publish = "."
+  command = ""
+
+# Serve clean URLs (/about instead of /about.html) and strip trailing slashes.
+[[redirects]]
+  from = "/*"
+  status = 200
+  to = "/:splat"
+  force = false
+
+# Sensible security headers for a static marketing site.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"

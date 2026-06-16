@@ -1,0 +1,19 @@
+# OS / editor junk
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+.idea/
+.vscode/
+
+# Local env & secrets (never commit your Gemini key)
+.env
+.env.*
+*.key
+
+# Netlify
+.netlify
+
+# Python cache (from tools/gen_image.py)
+__pycache__/
+*.pyc
