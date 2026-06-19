@@ -79,6 +79,8 @@ button { font-family: inherit; cursor: pointer; }
 }
 
 .section { padding-block: var(--section-pad-v); }
+.section--pt-sm { padding-top: 48px; }
+.section--pb-sm { padding-bottom: 48px; }
 
 /* ---------- Typography scale ---------- */
 .eyebrow {
@@ -248,7 +250,7 @@ button { font-family: inherit; cursor: pointer; }
 .nav-toggle .material-symbols-outlined { font-size: 28px; }
 
 /* ---------- Hero ---------- */
-.hero { padding-top: 80px; padding-bottom: 128px; overflow: hidden; }
+.hero { padding-top: 40px; padding-bottom: 128px; overflow: hidden; }
 .hero__grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -261,7 +263,7 @@ button { font-family: inherit; cursor: pointer; }
 .hero__lead { max-width: 36rem; color: rgba(50, 65, 88, .8); }
 .hero__actions { display: flex; flex-wrap: wrap; gap: 16px; padding-top: 8px; }
 
-.hero__visual { display: flex; flex-direction: column; align-items: center; }
+.hero__visual { display: flex; flex-direction: column; align-items: center; align-self: start; }
 .hero__panel {
   width: 100%;
   height: 400px;
@@ -273,7 +275,7 @@ button { font-family: inherit; cursor: pointer; }
 .hero__caption { margin-top: 24px; text-align: center; color: var(--text-muted); }
 
 /* ---------- Trust strip ---------- */
-.trust { background: var(--navy-deep); padding-block: 48px; }
+.trust { background: var(--navy-deep); padding-block: 24px; }
 .trust__heading {
   margin: 0;
   text-align: center;
@@ -283,6 +285,18 @@ button { font-family: inherit; cursor: pointer; }
   letter-spacing: 0.01em;
   color: var(--on-primary);
 }
+.trust__sub {
+  margin: 12px auto 0;
+  max-width: 56rem;
+  text-align: center;
+  color: var(--on-primary);
+  opacity: 0.85;
+}
+/* Tighten spacing around full-width navy bands */
+.hero:has(+ .trust) { padding-bottom: 56px; }
+.section:has(+ .trust) { padding-bottom: 24px; }
+.section:has(+ .trust) .section-head { margin-bottom: 0; }
+.trust + .section { padding-top: 24px; }
 
 /* ---------- Generic section heads ---------- */
 .section-head { margin-bottom: 64px; }
