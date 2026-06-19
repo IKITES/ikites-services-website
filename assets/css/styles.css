@@ -274,33 +274,15 @@ button { font-family: inherit; cursor: pointer; }
 
 /* ---------- Trust strip ---------- */
 .trust { background: var(--navy-deep); padding-block: 48px; }
-.trust__row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 24px 48px;
-}
-.trust__label {
-  font-family: var(--font-mono);
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  color: var(--surface-variant);
-  opacity: .6;
-}
-.trust__items {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 16px 32px;
-  font-family: var(--font-mono);
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0.2em;
+.trust__heading {
+  margin: 0;
+  text-align: center;
+  font-family: var(--font-head);
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
   color: var(--on-primary);
 }
-.trust__items .dot { color: var(--secondary); }
 
 /* ---------- Generic section heads ---------- */
 .section-head { margin-bottom: 64px; }
@@ -629,3 +611,36 @@ button { font-family: inherit; cursor: pointer; }
   .nav__link::after,
   .reeng__link .material-symbols-outlined { transition: none; }
 }
+
+
+/* =============================================================
+   Additions — capability cards, slim footer, success stories
+   ============================================================= */
+.cap-card .eyebrow { display:block; }
+.cap-card .card__title { margin-top:14px; }
+
+.footer--slim .container { display:flex; flex-direction:column; gap:20px; }
+.footer--slim .footer__brand .brand__logo { height:34px; }
+.footer--slim p { color: var(--on-primary); opacity:.55; max-width:46rem; font-size:15px; line-height:24px; }
+
+/* ---- Success Stories page ---- */
+.page-hero { padding-top:72px; padding-bottom:8px; }
+.page-hero .eyebrow { display:block; margin-bottom:16px; }
+.page-hero p { color: rgba(50,65,88,.75); max-width:44rem; margin-top:20px; }
+
+.stories-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:32px; }
+.story-card {
+  padding:32px; border-radius:var(--radius-card);
+  border:1px solid rgba(9,47,77,.10); background:#fff;
+  display:flex; flex-direction:column; gap:14px;
+  transition:transform .3s ease, box-shadow .3s ease;
+}
+.story-card:hover { transform:translateY(-4px); box-shadow:0 20px 40px rgba(9,47,77,.12); }
+.story-card .tag {
+  font-family:var(--font-mono); font-size:12px; font-weight:600;
+  letter-spacing:.12em; color:var(--secondary);
+}
+.story-card h3 { color:var(--primary); }
+.story-card p { color:rgba(50,65,88,.72); }
+
+@media (max-width:900px){ .stories-grid { grid-template-columns:1fr; } }
