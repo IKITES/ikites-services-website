@@ -6,6 +6,25 @@
   <title>iKITES Services | Deep-Tech Engineering Studio</title>
   <meta name="description" content="iKITES Services is a deep-tech engineering studio — your innovation partner from idea to market. Agentic AI, computer vision, and embedded systems, backed by a solid research bench." />
   <meta name="version" content="1.4.0" />
+  <link rel="canonical" href="https://services.ikites.ai/" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="iKITES Services | Deep-Tech Engineering Studio" />
+  <meta property="og:description" content="iKITES Services is a deep-tech engineering studio — your innovation partner from idea to market. Agentic AI, computer vision, and embedded systems, backed by a solid research bench." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://services.ikites.ai/" />
+  <meta property="og:site_name" content="iKITES Services" />
+  <meta property="og:image" content="https://services.ikites.ai/assets/img/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="iKITES Services — deep-tech engineering studio" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="iKITES Services | Deep-Tech Engineering Studio" />
+  <meta name="twitter:description" content="iKITES Services is a deep-tech engineering studio — your innovation partner from idea to market. Agentic AI, computer vision, and embedded systems, backed by a solid research bench." />
+  <meta name="twitter:image" content="https://services.ikites.ai/assets/img/og-image.png" />
+
   <link rel="icon" type="image/png" href="assets/img/favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -13,6 +32,7 @@
   <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
 <body>
+  <a class="skip-link" href="#top">Skip to main content</a>
   <header class="site-header">
     <div class="container">
       <a class="brand" href="#top" aria-label="iKITES Services home">
@@ -27,7 +47,7 @@
       </nav>
       <a class="btn btn--primary btn--sm" href="https://www.ikites.ai/contact-us">Start a project</a>
       <button class="nav-toggle" type="button" aria-label="Toggle menu" aria-expanded="false">
-        <span class="material-symbols-outlined">menu</span>
+        <span class="material-symbols-outlined" aria-hidden="true">menu</span>
       </button>
     </div>
   </header>
@@ -218,17 +238,17 @@
     <section class="section section--pb-sm reveal">
       <div class="container cards-3">
         <article class="card">
-          <span class="material-symbols-outlined card__icon">rocket_launch</span>
+          <span class="material-symbols-outlined card__icon" aria-hidden="true">rocket_launch</span>
           <h3 class="headline-md card__title">Founder</h3>
           <p class="body-sm">You're past the idea stage and ready to build properly. We bring engineering co-founder capacity that doesn't need hand-holding.</p>
         </article>
         <article class="card">
-          <span class="material-symbols-outlined card__icon">science</span>
+          <span class="material-symbols-outlined card__icon" aria-hidden="true">science</span>
           <h3 class="headline-md card__title">Researcher</h3>
           <p class="body-sm">You have a breakthrough in the lab. We do the translational engineering that takes it from R&amp;D to market.</p>
         </article>
         <article class="card">
-          <span class="material-symbols-outlined card__icon">account_tree</span>
+          <span class="material-symbols-outlined card__icon" aria-hidden="true">account_tree</span>
           <h3 class="headline-md card__title">Enterprise</h3>
           <p class="body-sm">You have systems at scale and the technical debt to match. We re-engineer them for the AI era — without disrupting what's already live.</p>
         </article>
@@ -237,7 +257,7 @@
 
     <section class="section section--pt-sm bg-alt reveal" id="capabilities">
       <div class="container section-head">
-        <h2 class="headline-lg">Three deep capabilities.<br />One team that ships.</h2>
+        <h2 class="headline-lg">Three deep capabilities. <br />One team that ships.</h2>
       </div>
       <div class="container cards-3">
         <article class="card cap-card">
@@ -301,9 +321,43 @@
         <img class="brand__logo" src="assets/img/ikites-logo-white.png" alt="iKITES" width="471" height="191" />
         <span class="brand__suffix">/ SERVICES</span>
       </div>
-      <p>© 2024 iKITES Services. Knowledge Innovation Technology EcoSystem. Professional engineering for the high-stakes frontier.</p>
+      <p>© <span id="year">2026</span> iKITES Services. Knowledge Innovation Technology EcoSystem. Professional engineering for the high-stakes frontier.</p>
     </div>
   </footer>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://services.ikites.ai/#organization",
+        "name": "iKITES Services",
+        "url": "https://services.ikites.ai/",
+        "logo": "https://services.ikites.ai/assets/img/ikites-logo.png",
+        "description": "iKITES Services is a deep-tech engineering studio — your innovation partner from idea to market. Agentic AI, computer vision, and embedded systems, backed by a solid research bench.",
+        "sameAs": ["https://www.ikites.ai"]
+      },
+      {
+        "@type": "Service",
+        "name": "Agentic AI & Automation",
+        "provider": { "@id": "https://services.ikites.ai/#organization" },
+        "description": "We engineer autonomous, multi-agent systems that reason over your data, make decisions, and run complex workflows end to end — built to stay dependable in production, not just in a demo."
+      },
+      {
+        "@type": "Service",
+        "name": "Computer Vision",
+        "provider": { "@id": "https://services.ikites.ai/#organization" },
+        "description": "We build vision systems that read clinical images, catch defects on the production line, and measure with precision — in real time, on the edge. Accurate even when the data is limited and the hardware constrained."
+      },
+      {
+        "@type": "Service",
+        "name": "Embedded Devices",
+        "provider": { "@id": "https://services.ikites.ai/#organization" },
+        "description": "We design the hardware and write the firmware that brings intelligence to the device — from architecture to a production-ready prototype, with real-time AI on minimal power."
+      }
+    ]
+  }
+  </script>
   <script src="assets/js/main.js"></script>
 </body>
 </html>
