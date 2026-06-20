@@ -673,3 +673,46 @@ button { font-family: inherit; cursor: pointer; }
   .story-card { grid-template-columns:1fr; }
   .story-card__img { aspect-ratio:16 / 10; min-height:0; height:auto; }
 }
+
+/* ---- Clickable story cards (stretched-link pattern) ---- */
+.story-card { position:relative; }
+.story-card__link {
+  display:inline-flex; align-items:center; gap:8px;
+  margin-top:4px;
+  font-family:var(--font-mono); font-size:13px; font-weight:600;
+  letter-spacing:.08em; text-transform:uppercase;
+  color:var(--secondary); text-decoration:none;
+  transition:color .2s ease, gap .2s ease;
+}
+.story-card__link span { transition:transform .2s ease; }
+.story-card__link::after {
+  content:""; position:absolute; inset:0;
+  border-radius:var(--radius-card);
+}
+.story-card:hover .story-card__link { color:var(--teal-hover); }
+.story-card:hover .story-card__link span { transform:translateX(4px); }
+.story-card:focus-within { transform:translateY(-4px); box-shadow:0 20px 40px rgba(9,47,77,.12); }
+.story-card__link:focus-visible { outline:none; }
+.story-card:focus-within { outline:2px solid var(--secondary); outline-offset:3px; }
+
+/* ---- Story detail page ---- */
+.story-detail { padding-top:8px; }
+.story-detail .container { max-width:980px; }
+.story-detail__hero-img {
+  display:block; width:100%; height:auto;
+  border-radius:var(--radius-card);
+  margin:32px 0 8px;
+  background:var(--navy-deep);
+  object-fit:cover;
+}
+.story-detail__prose { max-width:46rem; }
+.story-detail__prose h2 { color:var(--primary); margin:48px 0 16px; }
+.story-detail__prose p { color:rgba(50,65,88,.78); margin:0 0 20px; }
+.story-detail__back {
+  display:inline-flex; align-items:center; gap:8px;
+  margin-top:40px;
+  font-family:var(--font-mono); font-size:13px; font-weight:600;
+  letter-spacing:.08em; text-transform:uppercase;
+  color:var(--secondary); text-decoration:none;
+}
+.story-detail__back:hover { color:var(--teal-hover); }
