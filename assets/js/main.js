@@ -37,6 +37,15 @@
     onScroll();
   }
 
+  /* ---- Reduced motion: strip the yin-yang SMIL animations ----
+     CSS can't pause SMIL. The visual's authored attributes already rest in
+     their final state, so removing the <animate> nodes leaves a clean image.
+     Scoped to .yinyang so the Services hero SVG is untouched. */
+  if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    var anims = document.querySelectorAll(".yinyang animate, .yinyang animateTransform, .yinyang animateMotion");
+    anims.forEach(function (n) { n.parentNode && n.parentNode.removeChild(n); });
+  }
+
   /* ---- Mobile nav toggle ---- */
   var toggle = document.querySelector(".nav-toggle");
   var nav = document.querySelector(".nav");

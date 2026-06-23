@@ -15,6 +15,8 @@
   --teal-hover: #1fa7a6;
   --teal-muted: rgba(28, 141, 144, 0.10);
   --text-muted: #5a6b78;
+  --gold: #c68a2e;            /* Clinics arm accent */
+  --gold-text: #8a5a00;
 
   /* Surfaces & supporting */
   --on-primary: #ffffff;
@@ -253,12 +255,17 @@ button { font-family: inherit; cursor: pointer; }
 .hero { padding-top: 40px; padding-bottom: 128px; overflow: hidden; }
 .hero__grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 64px;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 40px;
   align-items: center;
 }
 .hero__content { display: flex; flex-direction: column; gap: 32px; }
-.hero__title { margin-top: 8px; }
+.hero__title {
+  margin-top: 8px;
+  text-wrap: balance;          /* never strand a lone word on a line */
+  font-size: clamp(2.75rem, 5.2vw, 4.5rem);
+  line-height: 1.05;
+}
 .hero__title .accent { color: var(--secondary); }
 .hero__lead { max-width: 36rem; color: rgba(50, 65, 88, .8); }
 .hero__actions { display: flex; flex-wrap: wrap; gap: 16px; padding-top: 8px; }
@@ -672,4 +679,202 @@ button { font-family: inherit; cursor: pointer; }
 @media (max-width:720px){
   .story-card { grid-template-columns:1fr; }
   .story-card__img { aspect-ratio:16 / 10; min-height:0; height:auto; }
+}
+
+
+/* =============================================================
+   Corporate homepage (index.html) — built on the existing system
+   ============================================================= */
+
+/* ---- Hero thesis badge (pill) ---- */
+.hero__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  align-self: flex-start;
+  padding: 9px 18px;
+  border: 1px solid rgba(9, 47, 77, .12);
+  border-radius: var(--radius-full);
+  background: #fff;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  color: var(--secondary);
+  box-shadow: 0 1px 3px rgba(9, 47, 77, .05);
+}
+.hero__badge .arr { color: var(--text-muted); }
+.hero__badge .dim { color: var(--text-muted); }
+
+/* ---- Yin-yang R&D visual (line-art) ---- */
+.yinyang { width: 100%; height: 100%; filter: drop-shadow(0 10px 30px rgba(9, 47, 77, .12)); }
+
+/* ---- Impact statement band (full-width navy separator) ---- */
+.statement {
+  position: relative;
+  overflow: hidden;
+  background: var(--navy-deep);
+  color: var(--on-primary);
+  padding-block: 88px;
+}
+.statement::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("../img/navy-texture.png") right center / cover no-repeat;
+  opacity: .45;
+  pointer-events: none;
+}
+.statement .container { position: relative; z-index: 1; max-width: 60rem; text-align: center; }
+.statement .eyebrow { color: var(--secondary-fixed); display: block; margin-bottom: 20px; }
+.statement h2 { color: var(--on-primary); }
+.statement p {
+  margin-top: 24px;
+  color: rgba(255, 255, 255, .75);
+  font-size: 18px;
+  line-height: 30px;
+}
+@media (max-width: 900px) { .statement { padding-block: 56px; } }
+
+/* ---- Thesis equation card ---- */
+.thesis-eq {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 32px;
+  padding: 44px 32px;
+  border: 1px solid rgba(9, 47, 77, .10);
+  border-radius: var(--radius-card);
+  background: var(--paper-alt);
+}
+.eq-term { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.eq-term__big {
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: 44px;
+  line-height: 1;
+  color: var(--primary);
+}
+.eq-term__big .sm { font-size: 28px; }
+.eq-term__lbl {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .18em;
+  color: var(--secondary);
+}
+.eq-op { font-family: var(--font-head); font-size: 30px; font-weight: 600; color: var(--text-muted); }
+.eq-term--impact .eq-term__big { color: var(--secondary); font-size: 52px; }
+
+/* ---- 3-step flow arrows (reuses .process-grid / .process-step) ---- */
+.process-step { position: relative; }
+.process-step__arrow {
+  position: absolute;
+  top: 40px;
+  right: -30px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 24px;
+  line-height: 1;
+  pointer-events: none;
+}
+
+/* ---- "Three arms" cards (reuses .cards-3 / .card) ---- */
+.arm-card { position: relative; display: flex; flex-direction: column; gap: 16px; padding-top: 36px; }
+.arm-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  border-radius: var(--radius-card) var(--radius-card) 0 0;
+  background: var(--secondary);
+}
+.arm-card--products::before { background: var(--navy-deep); }
+.arm-card--clinics::before  { background: var(--gold); }
+.arm-card__foot {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding-top: 8px;
+}
+.arm-card__link {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: .03em;
+  color: var(--secondary);
+}
+.arm-card__link:hover { color: var(--teal-hover); }
+
+/* ---- Status badges ---- */
+.badge {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+}
+.badge--now     { background: var(--teal-muted); color: var(--secondary); }
+.badge--works   { background: rgba(9, 47, 77, .08); color: var(--slate); }
+.badge--explore { background: rgba(198, 138, 46, .14); color: var(--gold-text); }
+
+/* ---- Industry pills ---- */
+.pill-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
+.pill {
+  padding: 10px 20px;
+  border: 1px solid rgba(9, 47, 77, .12);
+  border-radius: var(--radius-full);
+  background: #fff;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .03em;
+  color: var(--slate);
+  transition: border-color .2s ease, color .2s ease, transform .2s ease;
+}
+.pill:hover { border-color: var(--secondary); color: var(--secondary); transform: translateY(-2px); }
+
+/* ---- Corporate (rich) footer extras — reuses .footer / .footer__grid ---- */
+.footer__email {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--secondary-fixed);
+  letter-spacing: .02em;
+}
+.footer__email:hover { color: var(--tertiary-fixed); }
+.footer__base {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, .08);
+  color: var(--on-primary);
+  opacity: .5;
+  font-size: 13px;
+  font-family: var(--font-mono);
+  letter-spacing: .04em;
+}
+.footer__base a:hover { color: var(--secondary-fixed); opacity: 1; }
+
+/* The yin-yang visual uses SMIL (<animate>) which CSS can't pause, so its
+   reduced-motion freeze is handled in main.js. Its authored attributes already
+   rest in the final state, so stripping the animations leaves a clean image. */
+
+/* ---- Corporate (rich) footer grid ---- */
+.footer__grid--corp { grid-template-columns: 2.4fr 1fr 1fr; gap: 48px; }
+@media (max-width: 900px) {
+  .footer__grid--corp { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .footer__grid--corp .footer__about { grid-column: 1 / -1; }
+}
+@media (max-width: 560px) {
+  .footer__grid--corp { grid-template-columns: 1fr; }
 }

@@ -1,14 +1,16 @@
-# iKITES Services — Marketing Site
+# iKITES — Marketing Site
 
-Static marketing site for iKITES Services (deep-tech engineering studio).
-Plain HTML/CSS/JS — no build step, no dependencies.
+Static marketing site for iKITES. `index.html` is the **parent iKITES corporate
+homepage** ("From research to reality"); `services.html` is the **Services arm**
+landing page. Plain HTML/CSS/JS — no build step, no dependencies.
 
 ## Structure
 
 ```
 .
-├── index.html              # Home page
-├── success-stories.html    # Case studies / "what we've built"
+├── index.html              # iKITES corporate home (parent identity)
+├── services.html           # Services arm landing page (formerly index.html)
+├── success-stories.html    # Services case studies / "what we've built"
 ├── README.md
 └── assets/
     ├── css/
@@ -24,10 +26,24 @@ Plain HTML/CSS/JS — no build step, no dependencies.
 
 ## Links / routing
 
-- All **Contact**, **Start a project**, and **Get in touch** actions point to
+The corporate home links straight to each arm (nav, arm cards, footer):
+
+| Arm | Link target |
+|-----|-------------|
+| Services | `services.html` (the local Services page) |
+| Products | `https://products.ikites.ai` |
+| Clinics  | `https://clinics.ikites.ai` |
+
+- The **iKITES logo** links to `index.html` (the corporate home) on every page.
+- **Ecosystem** (corporate nav) scrolls to the in-page `#ecosystem` ("Three arms") section.
+- All **Connect with us / Contact / Start a project / Get in touch** actions point to
   `https://www.ikites.ai/contact-us`.
-- The hero **"See what we've built"** button and the nav **Success Stories**
-  link point to `success-stories.html`.
+- **Services page (`services.html`)**: the hero **"See what we've built"** button and the
+  nav **Success Stories** link point to `success-stories.html`; **Capabilities** / **Process**
+  use `services.html#…` anchors.
+- Placeholders to confirm before publishing (corporate home): footer email
+  (`hello@ikites.ai`), LinkedIn/Instagram URLs, and the Privacy-policy link (`#`).
+  Search `index.html` for `TODO:`.
 
 ## Preview locally
 
