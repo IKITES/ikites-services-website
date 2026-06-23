@@ -35,8 +35,8 @@
   --container-max: 1180px;
   --gutter: 24px;
   --margin-x: 24px;
-  --section-pad-v: 100px;
-  --section-pad-v-mobile: 60px;
+  --section-pad-v: 64px;
+  --section-pad-v-mobile: 48px;
 
   /* Type families */
   --font-head: "Montserrat", system-ui, sans-serif;
@@ -252,7 +252,7 @@ button { font-family: inherit; cursor: pointer; }
 .nav-toggle .material-symbols-outlined { font-size: 28px; }
 
 /* ---------- Hero ---------- */
-.hero { padding-top: 40px; padding-bottom: 128px; overflow: hidden; }
+.hero { padding-top: 40px; padding-bottom: 64px; overflow: hidden; }
 .hero__grid {
   display: grid;
   grid-template-columns: 1.5fr 1fr;
@@ -306,7 +306,7 @@ button { font-family: inherit; cursor: pointer; }
 .trust + .section { padding-top: 24px; }
 
 /* ---------- Generic section heads ---------- */
-.section-head { margin-bottom: 64px; }
+.section-head { margin-bottom: 44px; }
 .section-head--center { text-align: center; }
 .section-head--center p { max-width: 48rem; margin-inline: auto; }
 .section-head p { color: rgba(50, 65, 88, .7); margin-top: 24px; }
@@ -428,7 +428,7 @@ button { font-family: inherit; cursor: pointer; }
 .reeng-section .container { position: relative; z-index: 1; }
 
 /* ---------- CTA band ---------- */
-.cta { position: relative; overflow: hidden; padding-block: 96px; }
+.cta { position: relative; overflow: hidden; padding-block: 72px; }
 .cta::before {
   content: "";
   position: absolute;
@@ -575,7 +575,7 @@ button { font-family: inherit; cursor: pointer; }
 }
 
 @media (max-width: 900px) {
-  :root { --section-pad-v: 60px; }
+  :root { --section-pad-v: 44px; }
 
   .nav { display: none; }
   .nav-toggle { display: inline-flex; }
@@ -706,8 +706,8 @@ button { font-family: inherit; cursor: pointer; }
 .hero__badge .arr { color: var(--text-muted); }
 .hero__badge .dim { color: var(--text-muted); }
 
-/* ---- Yin-yang R&D visual (line-art) ---- */
-.yinyang { width: 100%; height: 100%; filter: drop-shadow(0 10px 30px rgba(9, 47, 77, .12)); }
+/* ---- Bridge R&D visual (line-art) ---- */
+.bridge-art { width: 100%; height: 100%; filter: drop-shadow(0 10px 30px rgba(9, 47, 77, .12)); }
 
 /* ---- Impact statement band (full-width navy separator) ---- */
 .statement {
@@ -715,7 +715,7 @@ button { font-family: inherit; cursor: pointer; }
   overflow: hidden;
   background: var(--navy-deep);
   color: var(--on-primary);
-  padding-block: 88px;
+  padding-block: 64px;
 }
 .statement::before {
   content: "";
@@ -736,36 +736,79 @@ button { font-family: inherit; cursor: pointer; }
 }
 @media (max-width: 900px) { .statement { padding-block: 56px; } }
 
-/* ---- Thesis equation card ---- */
+/* Tighten the thesis lead-in so the equation + paragraph flows into "Three arms" */
+.section:has(.thesis-eq) { padding-top: 40px; padding-bottom: 0; }
+.section:has(.thesis-eq) .section-head { margin-bottom: 0; }
+.hero:has(+ .section .thesis-eq) { padding-bottom: 40px; }
+
+/* ---- Thesis equation card (dark band) ---- */
 .thesis-eq {
   display: flex;
+  flex-direction: column;
   align-items: center;
+  gap: 28px;
+  padding: 40px 32px;
+  margin-bottom: 48px;
+  border: 1px solid rgba(255, 255, 255, .10);
+  border-radius: var(--radius-card);
+  background: var(--navy-deep);
+}
+.thesis-eq__hint {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  color: var(--secondary-fixed);
+  text-align: center;
+}
+.thesis-eq__row {
+  display: flex;
+  align-items: flex-start;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 32px;
-  padding: 44px 32px;
-  border: 1px solid rgba(9, 47, 77, .10);
-  border-radius: var(--radius-card);
-  background: var(--paper-alt);
+  gap: 28px 36px;
 }
-.eq-term { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.eq-term { display: flex; flex-direction: column; align-items: center; gap: 10px; max-width: 13rem; }
 .eq-term__big {
   font-family: var(--font-head);
   font-weight: 800;
   font-size: 44px;
   line-height: 1;
-  color: var(--primary);
+  color: #fff;
 }
-.eq-term__big .sm { font-size: 28px; }
+/* The lowercase half is faded so the capital reads as the emphasis */
+.eq-term__big .sm { font-size: 28px; color: rgba(255, 255, 255, .45); }
 .eq-term__lbl {
   font-family: var(--font-mono);
   font-size: 12px;
   font-weight: 600;
   letter-spacing: .18em;
-  color: var(--secondary);
+  color: var(--secondary-fixed);
 }
-.eq-op { font-family: var(--font-head); font-size: 30px; font-weight: 600; color: var(--text-muted); }
-.eq-term--impact .eq-term__big { color: var(--secondary); font-size: 52px; }
+.eq-term__exp {
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 18px;
+  text-align: center;
+  color: rgba(255, 255, 255, .62);
+}
+.eq-term__exp strong { color: #fff; font-weight: 700; }
+.eq-op {
+  font-family: var(--font-head);
+  font-size: 30px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, .5);
+  align-self: flex-start;
+  padding-top: 6px;            /* line the operator up with the big symbols */
+}
+.eq-term--impact .eq-term__big { color: var(--tertiary-fixed); font-size: 52px; }
+
+/* Stack the equation as a clean centered column on small screens */
+@media (max-width: 560px) {
+  .thesis-eq__row { flex-direction: column; align-items: center; }
+  .eq-term { max-width: none; }
+  .eq-op { align-self: center; padding-top: 0; }
+}
 
 /* ---- 3-step flow arrows (reuses .process-grid / .process-step) ---- */
 .process-step { position: relative; }
@@ -864,6 +907,85 @@ button { font-family: inherit; cursor: pointer; }
   letter-spacing: .04em;
 }
 .footer__base a:hover { color: var(--secondary-fixed); opacity: 1; }
+
+/* ---- Team page ---- */
+.team-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; max-width: 780px; margin-inline: auto; }
+.team-grid--partners { grid-template-columns: repeat(2, 1fr); max-width: 780px; margin-inline: auto; }
+.team-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 32px;
+  border-radius: var(--radius-card);
+  border: 1px solid rgba(9, 47, 77, .10);
+  background: #fff;
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+.team-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(9, 47, 77, .12); }
+.team-card__avatar {
+  width: 128px;
+  height: 128px;
+  border-radius: var(--radius-full);
+  object-fit: cover;
+  background: var(--paper-alt);
+  border: 3px solid #fff;
+  box-shadow: 0 6px 18px rgba(9, 47, 77, .12);
+}
+.team-card__name { font-family: var(--font-head); font-size: 20px; font-weight: 700; color: var(--primary); line-height: 1.2; }
+.team-card__role { font-family: var(--font-mono); font-size: 12px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--secondary); }
+.team-card__org { font-family: var(--font-mono); font-size: 12px; color: var(--text-muted); letter-spacing: .02em; margin-top: -8px; }
+.team-card__bio { color: rgba(50, 65, 88, .72); font-size: 15px; line-height: 23px; }
+.team-card__link {
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  color: var(--secondary);
+  padding-top: 4px;
+}
+.team-card__link:hover { color: var(--teal-hover); }
+.team-card__link .material-symbols-outlined { font-size: 16px; }
+
+.loc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.loc-card { padding: 24px; border-radius: var(--radius-md); border: 1px solid rgba(9, 47, 77, .10); background: var(--paper-alt); }
+.loc-card h4 { font-family: var(--font-mono); font-size: 12px; letter-spacing: .16em; color: var(--secondary); margin-bottom: 10px; }
+.loc-card p { color: rgba(50, 65, 88, .75); font-size: 15px; line-height: 22px; }
+
+@media (max-width: 900px) { .team-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 780px) { .loc-grid { grid-template-columns: 1fr; } }
+@media (max-width: 560px) { .team-grid, .team-grid--partners { grid-template-columns: 1fr; } }
+
+/* ---- Connect page ---- */
+.connect { padding-block: 112px; }
+.connect__eyebrow { display: block; margin-bottom: 20px; color: var(--secondary-fixed); }
+.connect__lead {
+  max-width: 40rem;
+  margin: 0 auto 40px;
+  color: rgba(255, 255, 255, .78);
+}
+.connect__email {
+  font-size: 20px;
+  letter-spacing: .12em;
+  padding: 22px 56px;
+  max-width: 100%;
+  word-break: break-word;
+}
+.connect__note {
+  margin-top: 28px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 20px;
+  letter-spacing: .03em;
+  color: rgba(255, 255, 255, .55);
+}
+@media (max-width: 560px) {
+  .connect { padding-block: 72px; }
+  .connect__email { font-size: 17px; padding: 18px 32px; letter-spacing: .06em; }
+}
 
 /* The yin-yang visual uses SMIL (<animate>) which CSS can't pause, so its
    reduced-motion freeze is handled in main.js. Its authored attributes already

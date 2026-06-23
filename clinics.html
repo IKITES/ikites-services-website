@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>iKITES Clinics | AI-First Eye Care</title>
+  <meta name="description" content="iKITES Clinics is exploring AI-first eye care — showing how technology delivers better outcomes and efficiency in ophthalmology and oculomics. Open to partnerships." />
+  <meta name="version" content="1.0.0" />
+  <link rel="icon" type="image/png" href="assets/img/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400;500;600&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="index.html" aria-label="iKITES home">
+        <img class="brand__logo" src="assets/img/ikites-logo.png" alt="iKITES" width="471" height="191" />
+        <span class="brand__suffix">/ CLINICS</span>
+      </a>
+      <nav class="nav" aria-label="Primary">
+        <a class="nav__link" href="index.html">Home</a>
+        <a class="nav__link" href="services.html">Services</a>
+        <a class="nav__link" href="products.html">Products</a>
+        <a class="nav__link" href="team.html">Team</a>
+        <a class="nav__link" href="connect.html">Contact</a>
+      </nav>
+      <a class="btn btn--primary btn--sm" href="connect.html">Partner with us</a>
+      <button class="nav-toggle" type="button" aria-label="Toggle menu" aria-expanded="false">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- ============================ HERO ============================ -->
+    <section class="hero hero--enter">
+      <div class="container hero__grid">
+        <div class="hero__content">
+          <span class="eyebrow">iKITES Clinics</span>
+          <h1 class="display-xl hero__title">
+            AI-first <span class="accent">eye care.</span>
+          </h1>
+          <p class="body-lg hero__lead">
+            We're exploring how AI-first eye care can deliver better outcomes and greater
+            efficiency in ophthalmology and oculomics — and we're open to the partners who
+            want to build it with us.
+          </p>
+          <div class="hero__actions">
+            <a class="btn btn--primary" href="connect.html">Partner with us</a>
+            <a class="btn btn--ghost" href="#focus">What we're exploring &darr;</a>
+          </div>
+        </div>
+
+        <div class="hero__visual">
+          <div class="hero__panel">
+            <svg class="ascent-glow" style="width:100%;height:100%;" viewBox="0 0 400 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Line-art of an eye with concentric rings and a scanning line, representing AI reading signals from the eye.">
+              <defs>
+                <linearGradient id="cGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#1C8D90" />
+                  <stop offset="100%" stop-color="#0C3B5F" />
+                </linearGradient>
+                <radialGradient id="cIris" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#3FE0E0" />
+                  <stop offset="100%" stop-color="#0C3B5F" />
+                </radialGradient>
+              </defs>
+              <!-- eye almond -->
+              <path d="M60 180 Q200 70 340 180 Q200 290 60 180 Z" fill="none" stroke="url(#cGrad)" stroke-width="2.5"
+                    stroke-dasharray="760" stroke-dashoffset="760">
+                <animate attributeName="stroke-dashoffset" from="760" to="0" begin="0.2s" dur="1.4s"
+                         calcMode="spline" keyTimes="0;1" keySplines="0.22 1 0.36 1" fill="freeze" />
+              </path>
+              <!-- concentric oculomics rings -->
+              <g fill="none" stroke="#1C8D90" opacity="0">
+                <animate attributeName="opacity" from="0" to="0.5" begin="1.2s" dur="0.6s" fill="freeze" />
+                <circle cx="200" cy="180" r="62" stroke-width="1.4" />
+                <circle cx="200" cy="180" r="44" stroke-width="1.4" />
+              </g>
+              <!-- iris -->
+              <circle cx="200" cy="180" r="30" fill="url(#cIris)" opacity="0">
+                <animate attributeName="opacity" from="0" to="1" begin="1.0s" dur="0.6s" fill="freeze" />
+              </circle>
+              <circle cx="200" cy="180" r="11" fill="#04263f" opacity="0">
+                <animate attributeName="opacity" from="0" to="1" begin="1.1s" dur="0.6s" fill="freeze" />
+              </circle>
+              <circle cx="210" cy="170" r="4" fill="#fff" opacity="0">
+                <animate attributeName="opacity" from="0" to="0.9" begin="1.3s" dur="0.6s" fill="freeze" />
+              </circle>
+              <!-- data points read off the eye -->
+              <g fill="#3FE0E0" opacity="0">
+                <animate attributeName="opacity" from="0" to="1" begin="1.6s" dur="0.6s" fill="freeze" />
+                <circle cx="150" cy="150" r="2.4" />
+                <circle cx="252" cy="156" r="2.4" />
+                <circle cx="166" cy="214" r="2.4" />
+                <circle cx="244" cy="210" r="2.4" />
+              </g>
+              <!-- scanning line sweeps across -->
+              <line x1="70" y1="120" x2="70" y2="240" stroke="#1FA7A6" stroke-width="2" opacity="0.7">
+                <animate attributeName="x1" values="80;320;80" dur="4.5s" begin="2s" repeatCount="indefinite" />
+                <animate attributeName="x2" values="80;320;80" dur="4.5s" begin="2s" repeatCount="indefinite" />
+                <animate attributeName="opacity" values="0;0.7;0.7;0" keyTimes="0;0.1;0.9;1" dur="4.5s" begin="2s" repeatCount="indefinite" />
+              </line>
+              <text x="200" y="318" text-anchor="middle" fill="#1C8D90" font-family="'IBM Plex Mono', monospace" font-size="12.5" font-weight="600" letter-spacing="0.18em">OCULOMICS</text>
+            </svg>
+          </div>
+          <p class="label-md hero__caption text-muted">The eye, read by AI.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ POSITIONING ============================ -->
+    <section class="trust">
+      <div class="container">
+        <h2 class="trust__heading">Better outcomes. Greater efficiency. AI-first.</h2>
+        <p class="trust__sub">A demonstration of how deep technology can change the standard of care in eye health.</p>
+      </div>
+    </section>
+
+    <!-- ============================ FOCUS ============================ -->
+    <section class="section reveal" id="focus">
+      <div class="container section-head">
+        <h2 class="headline-lg">What we're exploring.</h2>
+      </div>
+      <div class="container cards-3">
+        <article class="card cap-card">
+          <span class="eyebrow">01 / OUTCOMES</span>
+          <h3 class="headline-sm card__title">Better outcomes</h3>
+          <p class="body-sm">AI that supports clinicians in detecting and tracking eye disease earlier and more consistently — so more conditions are caught while they're still treatable.</p>
+        </article>
+        <article class="card cap-card">
+          <span class="eyebrow">02 / EFFICIENCY</span>
+          <h3 class="headline-sm card__title">Greater efficiency</h3>
+          <p class="body-sm">Streamlining the eye-care pathway — from screening to follow-up — so clinics see more patients with less friction, and specialists spend time where it matters most.</p>
+        </article>
+        <article class="card cap-card">
+          <span class="eyebrow">03 / OCULOMICS</span>
+          <h3 class="headline-sm card__title">Oculomics</h3>
+          <p class="body-sm">The eye is a window into wider health. We're exploring what its signals can reveal — and how AI can turn the retina into an early indicator beyond ophthalmology alone.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============================ PARTNERSHIP BAND ============================ -->
+    <section class="statement reveal">
+      <div class="container">
+        <span class="eyebrow">Open To Partnerships</span>
+        <h2 class="headline-lg">Let's build the proof together.</h2>
+        <p>
+          iKITES Clinics is an early, exploratory effort — and we believe it's best built with
+          partners. Clinicians, eye hospitals, researchers, and health innovators who want to
+          show what AI-first eye care can do: we'd like to hear from you.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============================ CTA ============================ -->
+    <section class="cta bg-navy reveal">
+      <div class="cta__glow"></div>
+      <div class="container cta__inner">
+        <span class="cta__rule"></span>
+        <h2 class="headline-lg">Explore it with us.</h2>
+        <p class="display-xl cta__big">Partner on AI-first eye care.</p>
+        <a class="btn btn--accent" href="connect.html">Start a conversation</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer footer--slim">
+    <div class="container">
+      <div class="footer__brand">
+        <img class="brand__logo" src="assets/img/ikites-logo-white.png" alt="iKITES" width="471" height="191" />
+        <span class="brand__suffix">/ CLINICS</span>
+      </div>
+      <p>© iKITES Technologies Inc. 2026. Exploring AI-first eye care in ophthalmology and oculomics. Open to partnerships.</p>
+    </div>
+  </footer>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
