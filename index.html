@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>iKITES | From Research to Reality</title>
-  <meta name="description" content="iKITES is a technology-led, AI-first deep-tech innovation company. We turn deep technology into innovation that reaches the real world — across Services, Products, and Clinics." />
+  <meta name="description" content="iKITES is a technology-led, AI-first deep-tech innovation company. We turn deep technology into innovation that reaches the real world — across Services and Products." />
   <meta name="version" content="2.0.0" />
   <link rel="icon" type="image/png" href="assets/img/favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -20,8 +20,7 @@
       </a>
       <nav class="nav" aria-label="Primary">
         <a class="nav__link" href="services.html">Services</a>
-        <a class="nav__link" href="products.html">Products</a>
-        <a class="nav__link" href="clinics.html">Clinics</a>
+        <a class="nav__link" href="#product-line">Products</a>
         <a class="nav__link" href="team.html">Team</a>
         <a class="nav__link" href="#ecosystem">Ecosystem</a>
       </nav>
@@ -248,35 +247,167 @@
       </div>
     </section>
 
-    <!-- ============================ THREE ARMS ============================ -->
+    <!-- ============================ SERVICES (what we do for clients) ============================ -->
     <section class="section reveal" id="ecosystem">
-      <div class="container section-head">
-        <span class="eyebrow">What We Do</span>
-        <h2 class="headline-lg">Three arms, one ecosystem.</h2>
-        <p class="body-md">iKITES is the parent identity above three business arms — each translating deep technology into the real world.</p>
+      <div class="container hero__grid">
+        <div class="hero__content">
+          <span class="eyebrow">What We Do</span>
+          <h2 class="headline-lg" style="margin-top:8px;">
+            We build deep tech for our <span style="color:var(--secondary);">clients.</span>
+          </h2>
+          <p class="body-lg hero__lead">
+            We do the deep technology work behind our clients' products — often 0 to 1,
+            sometimes alongside their teams.
+          </p>
+          <p class="body-md" style="color:rgba(50,65,88,.75);">
+            Engineering and innovation consulting, AI-first.
+          </p>
+          <div class="hero__actions">
+            <a class="btn btn--primary" href="services.html">Explore Services</a>
+          </div>
+        </div>
+
+        <div class="hero__visual">
+          <div class="hero__panel">
+            <svg class="ascent-glow" style="width:100%;height:100%;" viewBox="0 0 400 360"
+                 xmlns="http://www.w3.org/2000/svg" role="img"
+                 aria-label="Line-art of a small idea rising along an upward curve into a market-ready result, lifted by our engineering.">
+              <defs>
+                <linearGradient id="svcGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#1C8D90" />
+                  <stop offset="100%" stop-color="#0C3B5F" />
+                </linearGradient>
+                <radialGradient id="svcSpark" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#3FE0E0" />
+                  <stop offset="100%" stop-color="#1C8D90" />
+                </radialGradient>
+              </defs>
+
+              <!-- ground the idea starts from -->
+              <line x1="40" y1="288" x2="110" y2="288" stroke="#1C8D90" stroke-width="1.5" opacity="0.4" />
+
+              <!-- the lift trajectory (our engineering) draws itself in -->
+              <path d="M64 288 C 150 288, 220 90, 344 72" fill="none" stroke="url(#svcGrad)"
+                    stroke-width="2.8" stroke-linecap="round" stroke-dasharray="600" stroke-dashoffset="600">
+                <animate attributeName="stroke-dashoffset" from="600" to="0" begin="0.2s" dur="1.6s"
+                         calcMode="spline" keyTimes="0;1" keySplines="0.22 1 0.36 1" fill="freeze" />
+              </path>
+
+              <!-- updraft: our engineering lifting the idea -->
+              <g fill="none" stroke="#1C8D90" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M-6 4 L0 -3 L6 4" opacity="0">
+                  <animateTransform attributeName="transform" type="translate" values="150 270; 150 150" dur="2.6s" begin="1.6s" repeatCount="indefinite" />
+                  <animate attributeName="opacity" values="0;0.6;0" dur="2.6s" begin="1.6s" repeatCount="indefinite" />
+                </path>
+                <path d="M-6 4 L0 -3 L6 4" opacity="0">
+                  <animateTransform attributeName="transform" type="translate" values="210 270; 210 120" dur="2.6s" begin="2.1s" repeatCount="indefinite" />
+                  <animate attributeName="opacity" values="0;0.6;0" dur="2.6s" begin="2.1s" repeatCount="indefinite" />
+                </path>
+                <path d="M-6 4 L0 -3 L6 4" opacity="0">
+                  <animateTransform attributeName="transform" type="translate" values="270 270; 270 100" dur="2.6s" begin="2.6s" repeatCount="indefinite" />
+                  <animate attributeName="opacity" values="0;0.6;0" dur="2.6s" begin="2.6s" repeatCount="indefinite" />
+                </path>
+              </g>
+
+              <!-- idea node at the start -->
+              <circle cx="64" cy="288" r="6" fill="#fff" stroke="#1C8D90" stroke-width="2.2" />
+              <text x="64" y="312" text-anchor="middle" fill="#1C8D90" font-family="'IBM Plex Mono', monospace"
+                    font-size="11" font-weight="600" letter-spacing="0.14em">IDEA</text>
+
+              <!-- market-ready result lifting off the top -->
+              <g transform="translate(344 72)">
+                <circle r="5" fill="none" stroke="#1FA7A6" stroke-width="2" opacity="0">
+                  <animate attributeName="r" values="5;18" begin="1.8s" dur="3.2s" repeatCount="indefinite" />
+                  <animate attributeName="opacity" values="0.8;0" begin="1.8s" dur="3.2s" repeatCount="indefinite" />
+                </circle>
+                <path d="M0 -15 L15 0 L0 15 L-15 0 Z" fill="url(#svcSpark)" opacity="0">
+                  <animate attributeName="opacity" from="0" to="1" begin="1.6s" dur="0.6s" fill="freeze" />
+                  <animateTransform attributeName="transform" type="scale" values="1;1.12;1" dur="2.4s" begin="1.8s" repeatCount="indefinite" />
+                </path>
+              </g>
+              <text x="344" y="40" text-anchor="middle" fill="#0C3B5F" font-family="'IBM Plex Mono', monospace"
+                    font-size="12.5" font-weight="600" letter-spacing="0.18em">MARKET-READY</text>
+            </svg>
+          </div>
+          <p class="label-md hero__caption text-muted">Engineering that lifts ideas to market.</p>
+        </div>
       </div>
-      <div class="container cards-3">
-        <article class="card arm-card">
-          <h3 class="headline-sm">Services</h3>
-          <p class="body-sm">We do the deep technology work behind our clients' products — often 0 to 1, sometimes alongside their teams. Engineering and innovation consulting, AI-first.</p>
-          <div class="arm-card__foot">
-            <a class="arm-card__link" href="services.html">Explore Services &rarr;</a>
+    </section>
+
+    <!-- ============================ OUR OWN PRODUCT LINE (in the making) ============================ -->
+    <section class="section bg-alt reveal" id="product-line">
+      <div class="container hero__grid">
+        <div class="hero__content">
+          <span class="eyebrow">Our Own Products</span>
+          <h2 class="headline-lg" style="margin-top:8px;">
+            We build products of <span style="color:var(--secondary);">our own.</span>
+          </h2>
+          <p class="body-lg hero__lead">
+            iKITES builds products of its own — ventures we own outright, from the
+            intellectual property to the engineering behind them.
+          </p>
+          <p class="body-md" style="color:rgba(50,65,88,.75);">
+            They're ours end to end: built, owned, and backed by iKITES.
+          </p>
+          <div class="hero__actions">
+            <a class="btn btn--primary" href="connect.html">Connect with us</a>
           </div>
-        </article>
-        <article class="card arm-card arm-card--products">
-          <h3 class="headline-sm">Products</h3>
-          <p class="body-sm">Our own ventures, where we own and build the IP. Visionary AI is the first.</p>
-          <div class="arm-card__foot">
-            <a class="arm-card__link" href="products.html">Explore Products &rarr;</a>
+        </div>
+
+        <div class="hero__visual">
+          <div class="hero__panel">
+            <svg class="ascent-glow" style="width:100%;height:100%;" viewBox="0 0 400 360"
+                 xmlns="http://www.w3.org/2000/svg" role="img"
+                 aria-label="Line-art of an iKITES product — a device outline with a glowing core inside a ring, labelled Our IP.">
+              <defs>
+                <linearGradient id="plGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#1C8D90" />
+                  <stop offset="100%" stop-color="#0C3B5F" />
+                </linearGradient>
+                <radialGradient id="plSpark" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#3FE0E0" />
+                  <stop offset="100%" stop-color="#1C8D90" />
+                </radialGradient>
+              </defs>
+
+              <!-- build ring (progress) -->
+              <circle cx="200" cy="180" r="120" fill="none" stroke="#1C8D90" stroke-width="1.4"
+                      opacity="0.25" stroke-dasharray="4 9" />
+              <circle cx="200" cy="180" r="120" fill="none" stroke="url(#plGrad)" stroke-width="3"
+                      stroke-linecap="round" stroke-dasharray="180 575" transform="rotate(-90 200 180)">
+                <animateTransform attributeName="transform" type="rotate"
+                                  from="-90 200 180" to="270 200 180" dur="7s" repeatCount="indefinite" />
+              </circle>
+
+              <!-- device outline being assembled -->
+              <g fill="none" stroke="url(#plGrad)" stroke-width="2.5" stroke-linejoin="round">
+                <rect x="150" y="106" width="100" height="148" rx="14" opacity="0">
+                  <animate attributeName="opacity" from="0" to="1" begin="0.2s" dur="0.7s" fill="freeze" />
+                </rect>
+                <line x1="150" y1="134" x2="250" y2="134" opacity="0">
+                  <animate attributeName="opacity" from="0" to="1" begin="0.6s" dur="0.6s" fill="freeze" />
+                </line>
+                <line x1="150" y1="226" x2="250" y2="226" opacity="0">
+                  <animate attributeName="opacity" from="0" to="1" begin="0.9s" dur="0.6s" fill="freeze" />
+                </line>
+              </g>
+
+              <!-- glowing core -->
+              <g transform="translate(200 180)" opacity="0">
+                <path d="M0 -22 L22 0 L0 22 L-22 0 Z" fill="url(#plSpark)">
+                  <animateTransform attributeName="transform" type="scale" values="1;1.14;1"
+                                    dur="2.4s" begin="1.2s" repeatCount="indefinite" />
+                </path>
+                <animate attributeName="opacity" from="0" to="1" begin="1.0s" dur="0.6s" fill="freeze" />
+              </g>
+
+              <text x="200" y="320" text-anchor="middle" fill="#1C8D90"
+                    font-family="'IBM Plex Mono', monospace" font-size="12.5" font-weight="600"
+                    letter-spacing="0.18em">OUR IP</text>
+            </svg>
           </div>
-        </article>
-        <article class="card arm-card arm-card--clinics">
-          <h3 class="headline-sm">Clinics</h3>
-          <p class="body-sm">We're exploring AI-first eye care to show how technology delivers better outcomes and efficiency in ophthalmology and oculomics. Open to partnerships.</p>
-          <div class="arm-card__foot">
-            <a class="arm-card__link" href="clinics.html">Explore Clinics &rarr;</a>
-          </div>
-        </article>
+          <p class="label-md hero__caption text-muted">From the iKITES product line.</p>
+        </div>
       </div>
     </section>
 
@@ -385,8 +516,7 @@
           <h4>Arms</h4>
           <nav aria-label="iKITES arms">
             <a href="services.html">Services</a>
-            <a href="products.html">Products</a>
-            <a href="clinics.html">Clinics</a>
+            <a href="#product-line">Products</a>
           </nav>
         </div>
         <div class="footer__col">
