@@ -5,8 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>iKITES | Connect With Us</title>
   <meta name="description" content="Connect with iKITES. The best place to start is a simple email — reach us at info@ikites.ai and tell us what you're working on." />
-  <meta name="version" content="1.0.0" />
+  <meta name="version" content="1.1.0" />
+  <!-- Canonical + social share preview (Open Graph / Twitter) -->
+  <link rel="canonical" href="https://www.ikites.ai/connect.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="iKITES" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:url" content="https://www.ikites.ai/connect.html" />
+  <meta property="og:title" content="iKITES | Connect With Us" />
+  <meta property="og:description" content="Connect with iKITES. Reach us at info@ikites.ai for deep-technology projects, research breakthroughs, or partnerships." />
+  <meta property="og:image" content="https://www.ikites.ai/assets/img/og/og-home.jpg" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="iKITES — Connect with us." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="iKITES | Connect With Us" />
+  <meta name="twitter:description" content="Connect with iKITES — reach us at info@ikites.ai for deep-tech projects, research breakthroughs, or partnerships." />
+  <meta name="twitter:image" content="https://www.ikites.ai/assets/img/og/og-home.jpg" />
   <link rel="icon" type="image/png" href="assets/img/favicon.png" />
+  <link rel="preload" as="image" href="assets/img/ikites-logo.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400;500;600&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet" />
@@ -22,12 +40,16 @@
       "@type": "Organization",
       "name": "iKITES",
       "email": "info@ikites.ai",
-      "url": "https://www.ikites.ai/"
+      "url": "https://www.ikites.ai/",
+      "sameAs": [
+        "https://www.linkedin.com/company/ikites"
+      ]
     }
   }
   </script>
 </head>
 <body>
+  <a class="skip-link" href="#top">Skip to main content</a>
   <header class="site-header">
     <div class="container">
       <a class="brand" href="index.html" aria-label="iKITES home">
@@ -41,7 +63,7 @@
       </nav>
       <a class="btn btn--primary btn--sm" href="mailto:info@ikites.ai">Email us</a>
       <button class="nav-toggle" type="button" aria-label="Toggle menu" aria-expanded="false">
-        <span class="material-symbols-outlined">menu</span>
+        <span class="material-symbols-outlined" aria-hidden="true">menu</span>
       </button>
     </div>
   </header>
@@ -81,18 +103,18 @@
           <a class="footer__email" href="mailto:info@ikites.ai">info@ikites.ai</a>
         </div>
         <div class="footer__col">
-          <h4>Arms</h4>
-          <nav aria-label="iKITES arms">
+          <h4>Navigate</h4>
+          <nav aria-label="iKITES navigation">
             <a href="services.html">Services</a>
             <a href="index.html#product-line">Products</a>
           </nav>
         </div>
       </div>
       <div class="footer__base">
-        <span>© iKITES Technologies Pvt Ltd 2026. All rights reserved.</span>
+        <span>&copy; iKITES Technologies Pvt Ltd 2026. All rights reserved.</span>
       </div>
     </div>
   </footer>
-  <script src="assets/js/main.js"></script>
+  <script src="assets/js/main.js" defer></script>
 </body>
-</html>
+  </html>
