@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>iKITES | Deep-Tech Engineering Studio</title>
   <meta name="description" content="iKITES Services is a deep-tech engineering studio — your innovation partner from idea to market. Agentic AI, computer vision, and embedded systems, backed by a solid research bench." />
-  <meta name="version" content="1.4.0" />
+  <meta name="version" content="1.5.0" />
   <!-- Canonical + social share preview (Open Graph / Twitter) -->
   <link rel="canonical" href="https://www.ikites.ai/services.html" />
   <meta property="og:type" content="website" />
@@ -24,6 +24,7 @@
   <meta name="twitter:description" content="iKITES Services is a deep-tech engineering studio — your innovation partner from idea to market. Agentic AI, computer vision, and embedded systems." />
   <meta name="twitter:image" content="https://www.ikites.ai/assets/img/og/og-services.jpg" />
   <link rel="icon" type="image/png" href="assets/img/favicon.png" />
+  <link rel="preload" as="image" href="assets/img/ikites-logo.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400;500;600&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet" />
@@ -38,7 +39,8 @@
     "provider": {
       "@type": "Organization",
       "name": "iKITES",
-      "url": "https://www.ikites.ai/"
+      "url": "https://www.ikites.ai/",
+      "sameAs": ["https://www.linkedin.com/company/ikites"]
     },
     "serviceType": [
       "Agentic AI & Automation",
@@ -51,6 +53,7 @@
   </script>
 </head>
 <body>
+  <a class="skip-link" href="#top">Skip to main content</a>
   <header class="site-header">
     <div class="container">
       <a class="brand" href="index.html" aria-label="iKITES home">
@@ -65,7 +68,7 @@
       </nav>
       <a class="btn btn--primary btn--sm" href="connect.html">Start a project</a>
       <button class="nav-toggle" type="button" aria-label="Toggle menu" aria-expanded="false">
-        <span class="material-symbols-outlined">menu</span>
+        <span class="material-symbols-outlined" aria-hidden="true">menu</span>
       </button>
     </div>
   </header>
@@ -256,17 +259,17 @@
     <section class="section section--pb-sm reveal">
       <div class="container cards-3">
         <article class="card">
-          <span class="material-symbols-outlined card__icon">rocket_launch</span>
+          <span class="material-symbols-outlined card__icon" aria-hidden="true">rocket_launch</span>
           <h3 class="headline-md card__title">Founder</h3>
           <p class="body-sm">You're past the idea stage and ready to build properly. We bring engineering co-founder capacity that doesn't need hand-holding.</p>
         </article>
         <article class="card">
-          <span class="material-symbols-outlined card__icon">science</span>
+          <span class="material-symbols-outlined card__icon" aria-hidden="true">science</span>
           <h3 class="headline-md card__title">Researcher</h3>
           <p class="body-sm">You have a breakthrough in the lab. We do the translational engineering that takes it from R&amp;D to market.</p>
         </article>
         <article class="card">
-          <span class="material-symbols-outlined card__icon">account_tree</span>
+          <span class="material-symbols-outlined card__icon" aria-hidden="true">account_tree</span>
           <h3 class="headline-md card__title">Enterprise</h3>
           <p class="body-sm">You have systems at scale and the technical debt to match. We re-engineer them for the AI era — without disrupting what's already live.</p>
         </article>
@@ -342,6 +345,6 @@
       <p>© iKITES Technologies Pvt Ltd 2026. Knowledge Innovation Technology EcoSystem.</p>
     </div>
   </footer>
-  <script src="assets/js/main.js"></script>
+  <script src="assets/js/main.js" defer></script>
 </body>
 </html>
