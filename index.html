@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>iKITES | From Research to Reality</title>
   <meta name="description" content="iKITES is a technology-led, AI-first deep-tech innovation company. We turn deep technology into innovation that reaches the real world — across Services and Products." />
-  <meta name="version" content="2.0.0" />
+  <meta name="version" content="2.1.0" />
   <!-- Canonical + social share preview (Open Graph / Twitter) -->
   <link rel="canonical" href="https://www.ikites.ai/" />
   <meta property="og:type" content="website" />
@@ -24,6 +24,7 @@
   <meta name="twitter:description" content="iKITES is a technology-led, AI-first deep-tech innovation company. We turn deep technology into innovation that reaches the real world." />
   <meta name="twitter:image" content="https://www.ikites.ai/assets/img/og/og-home.jpg" />
   <link rel="icon" type="image/png" href="assets/img/favicon.png" />
+  <link rel="preload" as="image" href="assets/img/ikites-logo.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400;500;600&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet" />
@@ -60,6 +61,7 @@
   </script>
 </head>
 <body>
+  <a class="skip-link" href="#top">Skip to main content</a>
   <header class="site-header">
     <div class="container">
       <a class="brand" href="index.html" aria-label="iKITES home">
@@ -72,7 +74,7 @@
       </nav>
       <a class="btn btn--primary btn--sm" href="connect.html">Connect with us</a>
       <button class="nav-toggle" type="button" aria-label="Toggle menu" aria-expanded="false">
-        <span class="material-symbols-outlined">menu</span>
+        <span class="material-symbols-outlined" aria-hidden="true">menu</span>
       </button>
     </div>
   </header>
@@ -558,8 +560,8 @@
           <a class="footer__email" href="mailto:info@ikites.ai">info@ikites.ai</a>
         </div>
         <div class="footer__col">
-          <h4>Arms</h4>
-          <nav aria-label="iKITES arms">
+          <h4>Navigate</h4>
+          <nav aria-label="iKITES navigation">
             <a href="services.html">Services</a>
             <a href="#product-line">Products</a>
           </nav>
@@ -570,6 +572,6 @@
       </div>
     </div>
   </footer>
-  <script src="assets/js/main.js"></script>
+  <script src="assets/js/main.js" defer></script>
 </body>
 </html>
