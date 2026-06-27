@@ -72,6 +72,30 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 button { font-family: inherit; cursor: pointer; }
 
+/* ---------- Skip link — keyboard accessibility ---------- */
+/* Hidden off-screen until a keyboard user tabs to it, then revealed. */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 1000;
+  padding: 12px 20px;
+  background: var(--primary);
+  color: #ffffff;
+  font-family: var(--font-head);
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 0 0 8px 0;
+  border: 2px solid var(--secondary);
+  outline: none;
+}
+.skip-link:focus {
+  left: 0;
+  top: 0;
+  outline: 3px solid var(--secondary-fixed);
+  outline-offset: 2px;
+}
+
 /* ---------- Layout helpers ---------- */
 .container {
   width: 100%;
