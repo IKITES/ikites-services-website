@@ -73,7 +73,6 @@ ul { margin: 0; padding: 0; list-style: none; }
 button { font-family: inherit; cursor: pointer; }
 
 /* ---------- Skip link — keyboard accessibility ---------- */
-/* Hidden off-screen until a keyboard user tabs to it, then revealed. */
 .skip-link {
   position: absolute;
   left: -9999px;
@@ -286,7 +285,7 @@ button { font-family: inherit; cursor: pointer; }
 .hero__content { display: flex; flex-direction: column; gap: 32px; }
 .hero__title {
   margin-top: 8px;
-  text-wrap: balance;          /* never strand a lone word on a line */
+  text-wrap: balance;
   font-size: clamp(2.75rem, 5.2vw, 4.5rem);
   line-height: 1.05;
 }
@@ -323,7 +322,6 @@ button { font-family: inherit; cursor: pointer; }
   color: var(--on-primary);
   opacity: 0.85;
 }
-/* Tighten spacing around full-width navy bands */
 .hero:has(+ .trust) { padding-bottom: 56px; }
 .section:has(+ .trust) { padding-bottom: 24px; }
 .section:has(+ .trust) .section-head { margin-bottom: 0; }
@@ -444,7 +442,7 @@ button { font-family: inherit; cursor: pointer; }
   position: absolute;
   inset: 0;
   background: url("../img/navy-texture.png") right center / cover no-repeat;
-  transform: scaleX(-1);          /* flow the schematic lines to the left, away from the cards */
+  transform: scaleX(-1);
   opacity: .45;
   pointer-events: none;
   z-index: 0;
@@ -552,7 +550,6 @@ button { font-family: inherit; cursor: pointer; }
   to   { opacity: 1; transform: none; }
 }
 
-/* Accent underline draws in after the headline settles */
 .hero__title .accent { position: relative; white-space: nowrap; }
 .hero__title .accent::after {
   content: "";
@@ -568,7 +565,6 @@ button { font-family: inherit; cursor: pointer; }
 }
 @keyframes underlineDraw { to { transform: scaleX(1); } }
 
-/* Hero visual lifts up from the bottom on load, then gently floats */
 .hero--enter .hero__visual {
   animation: heroLift 1.1s cubic-bezier(.22, 1, .36, 1) .3s both;
 }
@@ -825,7 +821,6 @@ button { font-family: inherit; cursor: pointer; }
   line-height: 1;
   color: #fff;
 }
-/* The lowercase half is faded so the capital reads as the emphasis */
 .eq-term__big .sm { font-size: 28px; color: rgba(255, 255, 255, .45); }
 .eq-term__lbl {
   font-family: var(--font-mono);
@@ -848,11 +843,10 @@ button { font-family: inherit; cursor: pointer; }
   font-weight: 600;
   color: rgba(255, 255, 255, .5);
   align-self: flex-start;
-  padding-top: 6px;            /* line the operator up with the big symbols */
+  padding-top: 6px;
 }
 .eq-term--impact .eq-term__big { color: var(--tertiary-fixed); font-size: 52px; }
 
-/* Stack the equation as a clean centered column on small screens */
 @media (max-width: 560px) {
   .thesis-eq__row { flex-direction: column; align-items: center; }
   .eq-term { max-width: none; }
@@ -932,7 +926,6 @@ button { font-family: inherit; cursor: pointer; }
 }
 .pill:hover { border-color: var(--secondary); color: var(--secondary); transform: translateY(-2px); }
 
-/* Text-style variant — reads as inline words rather than chips */
 .pill-row--text { gap: 8px 32px; }
 .pill--text {
   padding: 4px 0;
@@ -1048,10 +1041,6 @@ button { font-family: inherit; cursor: pointer; }
   .connect__email { font-size: 17px; padding: 18px 32px; letter-spacing: .06em; }
 }
 
-/* The yin-yang visual uses SMIL (<animate>) which CSS can't pause, so its
-   reduced-motion freeze is handled in main.js. Its authored attributes already
-   rest in the final state, so stripping the animations leaves a clean image. */
-
 /* ---- Corporate (rich) footer grid ---- */
 .footer__grid--corp { grid-template-columns: 2.4fr 1fr 1fr; gap: 48px; }
 @media (max-width: 900px) {
@@ -1060,4 +1049,441 @@ button { font-family: inherit; cursor: pointer; }
 }
 @media (max-width: 560px) {
   .footer__grid--corp { grid-template-columns: 1fr; }
+}
+
+
+/* =============================================================
+   KITES INTRO STORY — ported from the standalone React/GSAP
+   prototype into the site's own design system. Colors and
+   spacing map onto the existing tokens (--primary, --secondary,
+   --navy-deep, --secondary-fixed, --tertiary-fixed, etc.) so it
+   reads as one continuous section rather than an inserted block.
+   The serif display face is an intentional typographic accent
+   for this one moment, matching the source design.
+   ============================================================= */
+.kl-story {
+  --kl-serif: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
+  position: relative;
+}
+
+.kl-story-shell {
+  position: relative;
+  background:
+    radial-gradient(circle at 15% 12%, var(--teal-muted), transparent 25rem),
+    var(--paper);
+}
+
+/* Default (no-JS / JS-not-ready) fallback: both panels stack normally in
+   document flow so all content — including the "Innovation" panel — is
+   always visible even if GSAP/ScrollTrigger fail to load. */
+.kl-landing-panel,
+.kl-innovation-panel {
+  position: relative;
+}
+
+.kl-landing-panel {
+  padding: 72px clamp(28px, 5vw, 78px) 26px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 40px;
+  box-sizing: border-box;
+  min-height: 620px;
+}
+
+/* Once kites-story.js confirms GSAP + ScrollTrigger are available, it adds
+   .kl-js-enabled to #kl-story and takes over: the shell becomes a fixed-height
+   pinned stage and the two panels overlay each other for the scroll-morph. */
+#kl-story.kl-js-enabled .kl-story-shell {
+  height: calc(100svh - 74px);
+  min-height: 620px;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+#kl-story.kl-js-enabled .kl-landing-panel,
+#kl-story.kl-js-enabled .kl-innovation-panel {
+  position: absolute;
+  inset: 0;
+}
+
+#kl-story.kl-js-enabled .kl-innovation-panel {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.kl-landing-copy {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+}
+
+.kl-eyebrow {
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  color: var(--secondary);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.kl-eyebrow span {
+  width: 25px;
+  height: 1px;
+  background: var(--secondary);
+}
+
+.kl-landing-copy h1 {
+  max-width: 760px;
+  margin: 0;
+  font: 400 clamp(2.25rem, 4.35vw, 4.8rem)/0.98 var(--kl-serif);
+  letter-spacing: -0.02em;
+  color: var(--primary);
+}
+
+.kl-landing-summary {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  max-width: none;
+  margin-top: 24px;
+  column-count: 1;
+}
+.kl-landing-summary::before {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 2px;
+  margin-bottom: 16px;
+  background: var(--secondary);
+}
+
+.kl-landing-actions {
+  margin-top: 28px;
+}
+
+/* ---- Summary emphasis: echoes the K-I-T-E-S pillars above and picks out
+   key terms in the brand's teal, rather than plain bold ---- */
+.kl-landing-summary .kl-acro {
+  color: var(--secondary);
+  font-weight: 800;
+  font-size: 1.08em;
+}
+.kl-landing-summary .kl-brand {
+  font-family: var(--kl-serif);
+  font-style: italic;
+  color: var(--primary);
+  letter-spacing: 0.01em;
+}
+.kl-landing-summary .kl-key {
+  color: var(--secondary);
+  font-weight: 700;
+}
+.kl-landing-summary .kl-key--cta {
+  position: relative;
+  color: var(--secondary);
+  font-weight: 700;
+  white-space: nowrap;
+}
+.kl-landing-summary .kl-key--cta::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.4;
+}
+
+.kl-pillars {
+  position: relative;
+  z-index: 8;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  align-items: center;
+  min-height: clamp(200px, 30vh, 320px);
+  border-top: 1px solid rgba(0, 37, 64, 0.12);
+  border-bottom: 1px solid rgba(0, 37, 64, 0.12);
+}
+
+.kl-pillar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(10px, 1.6vw, 22px);
+  border-right: 1px solid rgba(0, 37, 64, 0.12);
+  color: var(--slate);
+  text-align: center;
+}
+.kl-pillar:last-child { border-right: 0; }
+
+.kl-pillar-letter {
+  color: var(--slate);
+  font: 400 clamp(3.2rem, 6.8vw, 7.2rem)/1 var(--kl-serif);
+}
+
+.kl-pillar-label {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: clamp(0.68rem, 1vw, 0.92rem);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.kl-pillar--active,
+.kl-pillar--active .kl-pillar-letter {
+  color: var(--secondary);
+}
+
+.kl-scroll-note {
+  position: absolute;
+  right: 16px;
+  bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  transform: rotate(90deg);
+  transform-origin: right center;
+}
+.kl-scroll-note i {
+  width: 34px;
+  height: 1px;
+  background: var(--secondary);
+}
+
+.kl-innovation-panel {
+  z-index: 10;
+  overflow: hidden;
+  color: var(--on-primary);
+  background-image:
+    linear-gradient(160deg, rgba(3, 7, 14, 0.5) 0%, rgba(9, 47, 77, 0.65) 100%),
+    url('../img/innovation-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.kl-innovation-intro {
+  position: absolute;
+  top: 44px;
+  left: 50%;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.55);
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-align: center;
+  text-transform: uppercase;
+  transform: translateX(-50%);
+}
+.kl-innovation-intro span {
+  display: block;
+  margin-top: 8px;
+  color: var(--on-primary);
+  font: 400 0.9rem/1.2 var(--kl-serif);
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.kl-innovation-center {
+  position: absolute;
+  z-index: 3;
+  top: 50%;
+  left: 50%;
+  width: min(48vw, 740px);
+  text-align: center;
+  transform: translate(-50%, -50%);
+}
+
+.kl-section-index {
+  display: block;
+  margin-bottom: 16px;
+  color: var(--tertiary-fixed);
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+}
+
+.kl-innovation-center h2 {
+  margin: 0;
+  color: #e2a6de;
+  font: 400 clamp(4rem, 9vw, 9.7rem)/0.82 var(--kl-serif);
+  letter-spacing: -0.06em;
+  text-shadow: 0 0 70px rgba(217, 139, 208, 0.35);
+}
+
+.kl-innovation-center > p {
+  margin-top: 28px;
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+}
+
+.kl-innovation-node {
+  position: absolute;
+  z-index: 4;
+  width: min(19vw, 250px);
+  padding-top: 13px;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+}
+.kl-innovation-node::after {
+  content: '';
+  position: absolute;
+  top: -3px;
+  right: 0;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--secondary-fixed);
+  box-shadow: 0 0 8px 2px rgba(145, 242, 245, 0.6);
+}
+.kl-innovation-node > span {
+  color: var(--tertiary-fixed);
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.16em;
+}
+.kl-innovation-node h3 {
+  margin: 8px 0 6px;
+  color: var(--on-primary);
+  font: 400 clamp(1.05rem, 1.5vw, 1.45rem)/1.05 var(--kl-serif);
+}
+.kl-innovation-node p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.72rem;
+  line-height: 1.55;
+}
+.kl-innovation-node-image {
+  display: block;
+  width: 100%;
+  margin-top: 14px;
+  filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.45));
+}
+
+.kl-node--one   { top: 16%; left: 5%; }
+.kl-node--two   { top: 16%; right: 5%; }
+.kl-node--three { bottom: 23%; left: 4%; }
+.kl-node--four  { right: 6%; bottom: 18%; }
+
+.kl-innovation-footer {
+  position: absolute;
+  right: clamp(28px, 5vw, 78px);
+  bottom: 34px;
+  left: clamp(28px, 5vw, 78px);
+  padding-top: 17px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+.kl-innovation-footer p {
+  color: rgba(255, 255, 255, 0.5);
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.kl-innovation-footer a {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  color: var(--on-primary);
+  font: 400 0.95rem/1 var(--kl-serif);
+  text-decoration: none;
+}
+.kl-innovation-footer a span {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  border: 1px solid var(--secondary-fixed);
+  border-radius: 50%;
+  color: var(--tertiary-fixed);
+  transition: 0.25s ease;
+}
+.kl-innovation-footer a:hover span {
+  color: var(--navy-deep);
+  background: var(--secondary-fixed);
+  transform: rotate(45deg);
+}
+
+@media (max-width: 980px) {
+  .kl-landing-panel { padding-top: 56px; }
+}
+
+@media (max-width: 900px) {
+  #kl-story.kl-js-enabled .kl-story-shell { height: calc(100svh - 74px); }
+}
+
+@media (max-width: 760px) {
+  .kl-story-shell { min-height: 640px; }
+
+  .kl-landing-panel {
+    padding: 44px 20px 18px;
+  }
+
+  .kl-eyebrow { margin-bottom: 11px; font-size: 0.6rem; }
+
+  .kl-landing-copy h1 { font-size: clamp(2rem, 9.8vw, 3.15rem); }
+  .kl-landing-copy h1 br { display: none; }
+
+  .kl-landing-summary {
+    width: 95%;
+    margin-top: 12px;
+    font-size: 0.78rem;
+    line-height: 1.5;
+  }
+
+  .kl-pillars { min-height: 210px; }
+  .kl-pillar-label { font-size: 0.55rem; letter-spacing: 0.06em; }
+
+  .kl-scroll-note { display: none; }
+
+  .kl-innovation-intro { top: 37px; width: 100%; }
+
+  .kl-innovation-center { top: 47%; width: 92vw; }
+  .kl-innovation-center h2 { font-size: clamp(3.6rem, 20vw, 6.5rem); }
+  .kl-innovation-center > p { width: 72%; margin: 20px auto 0; }
+
+  .kl-innovation-node { width: 37vw; }
+  .kl-innovation-node p { display: none; }
+  .kl-innovation-node h3 { font-size: 0.9rem; }
+
+  .kl-node--one   { top: 16%; left: 5%; }
+  .kl-node--two   { top: 18%; right: 5%; }
+  .kl-node--three { bottom: 17%; left: 5%; }
+  .kl-node--four  { right: 5%; bottom: 19%; }
+
+  .kl-innovation-footer { right: 20px; bottom: 21px; left: 20px; }
+  .kl-innovation-footer p { display: none; }
+  .kl-innovation-footer a { width: 100%; justify-content: space-between; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #kl-story .kl-story-shell { height: auto !important; overflow: visible !important; }
+  #kl-story .kl-landing-panel,
+  #kl-story .kl-innovation-panel { position: relative !important; inset: auto !important; min-height: 100svh; }
+  .kl-innovation-panel { visibility: visible !important; opacity: 1 !important; }
+  .kl-innovation-center h2,
+  .kl-innovation-node,
+  .kl-innovation-intro,
+  .kl-innovation-footer {
+    visibility: visible !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }

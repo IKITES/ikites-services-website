@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>iKites Platform</title>
+  <script type="text/javascript" src="https://static.sketchfab.com/api/sketchfab-viewer-1.12.1.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #ffffff; font-family: 'DM Sans', sans-serif; height: 100vh; overflow: hidden; }
+
+    /* ── SHARED NAV ─────────────────────────────────── */
+    #nav {
+      position: fixed; top: 0; left: 0; right: 0; padding: 18px 40px;
+      display: flex; justify-content: space-between; align-items: center;
+      z-index: 5000;
+      background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+    }
+    .nav-left { display: flex; align-items: center; gap: 18px; }
+    #home-btn {
+      display: flex; align-items: center; gap: 6px;
+      padding: 8px 18px; border-radius: 100px;
+      border: none; background: #1d4ed8;
+      color: #ffffff; font-family: 'DM Sans', sans-serif;
+      font-size: 13px; font-weight: 600; letter-spacing: 0.04em;
+      text-decoration: none; cursor: pointer;
+      transition: all 0.2s; box-shadow: 0 2px 10px rgba(29,78,216,0.28);
+    }
+    #home-btn:hover {
+      background: #1739ad; transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(29,78,216,0.35);
+    }
+    #back-btn {
+      display: none; align-items: center; gap: 7px;
+      font-size: 13px; font-weight: 600; font-family: 'DM Mono', monospace; letter-spacing: 0.08em;
+      color: rgba(15,23,42,0.5); background: none; border: none;
+      cursor: pointer; padding: 0; transition: color 0.2s;
+    }
+    #back-btn.show { display: flex; }
+    #back-btn:hover { color: #2563eb; }
+    #nav-tagline {
+      font-size: 13px; font-weight: 600; color: rgba(15,23,42,0.65);
+      font-family: 'DM Sans', sans-serif; letter-spacing: 0.03em;
+    }
+    #view-toggle {
+      display: flex; align-items: center;
+      background: rgba(15,23,42,0.06); border: 1px solid rgba(15,23,42,0.12);
+      border-radius: 100px; padding: 4px; gap: 0;
+    }
+    .toggle-option {
+      font-size: 13px; font-weight: 600; letter-spacing: 0.04em;
+      font-family: 'DM Sans', sans-serif; padding: 9px 22px; border-radius: 100px;
+      text-decoration: none; cursor: pointer; transition: all 0.22s;
+      white-space: nowrap; border: none; background: none;
+      color: rgba(15,23,42,0.45); display: inline-block;
+    }
+    .toggle-option.active { background: #1d4ed8; color: #ffffff; box-shadow: 0 2px 10px rgba(29,78,216,0.28); }
+    .toggle-option:not(.active):hover { color: rgba(15,23,42,0.75); background: rgba(15,23,42,0.05); }
+
+    /* ── SHARED HINTS ───────────────────────────────── */
+    #hint, #m-hint {
+      position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%);
+      font-size: 12px; font-weight: 600; letter-spacing: 0.05em; color: rgba(15,23,42,0.62);
+      font-family: 'DM Sans', sans-serif; z-index: 5000; pointer-events: none;
+      transition: opacity 0.35s;
+      background: rgba(255,255,255,0.92); padding: 8px 20px; border-radius: 100px;
+      backdrop-filter: blur(8px); border: 1px solid rgba(15,23,42,0.12);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.07); white-space: nowrap;
+    }
+
+    /* ── SHARED MODEL COVER ─────────────────────────── */
+    /* Softly fades over the Sketchfab model-credit text (bottom-left of the
+       eye model). Positioned relative to #eye-view (not the viewport), so it
+       automatically scrolls/hides away with that view — never shows on the
+       Modality view or the zoomed Retina view. */
+    #model-cover {
+      position: absolute; top: 8vh; left: 6vw;
+      width: 21vw; height: 11vh;
+      background: radial-gradient(ellipse at 30% 40%, #ffffff 60%, rgba(255,255,255,0) 90%);
+      z-index: 500; pointer-events: none;
+    }
+    /* Same trick as #model-cover, applied to the other three bits of the
+       Sketchfab viewer chrome that ui_* embed params don't fully suppress:
+       the share/close icons (top-right), the help/settings/VR/fullscreen
+       row (bottom-right), and the Sketchfab logo (bottom-left). All sit on
+       plain white background, so a soft white fade hides them without
+       leaving a visible box. */
+    #share-cover {
+      position: absolute; top: 8vh; left: 82vw;
+      width: 15vw; height: 9vh;
+      background: radial-gradient(ellipse at 70% 40%, #ffffff 60%, rgba(255,255,255,0) 90%);
+      z-index: 500; pointer-events: none;
+    }
+    #toolbar-cover {
+      position: absolute; bottom: 5vh; left: 75vw;
+      width: 23vw; height: 13vh;
+      background: radial-gradient(ellipse at 70% 60%, #ffffff 60%, rgba(255,255,255,0) 90%);
+      z-index: 500; pointer-events: none;
+    }
+    #logo-cover {
+      position: absolute; bottom: 5vh; left: 5vw;
+      width: 13vw; height: 13vh;
+      background: radial-gradient(ellipse at 30% 60%, #ffffff 60%, rgba(255,255,255,0) 90%);
+      z-index: 500; pointer-events: none;
+    }
+
+    /* ── ANATOMY VIEW ───────────────────────────────── */
+    #canvas {
+      position: fixed; top: 0; left: 0;
+      width: 200vw; height: 100vh; display: flex;
+      transition: transform 0.95s cubic-bezier(0.23, 1, 0.32, 1);
+      will-change: transform;
+    }
+    #canvas.retina-active { transform: translateX(-100vw); }
+    #eye-view { width: 100vw; height: 100vh; flex-shrink: 0; position: relative; }
+    #eye-frame {
+      width: 100%; height: 100%; border: none; display: block;
+      transform: scale(0.8); transform-origin: center center;
+    }
+    #retina-view { width: 100vw; height: 100vh; flex-shrink: 0; display: flex; }
+    #retina-model { flex: 1; position: relative; overflow: hidden; }
+    /* Retina-view equivalents of the anatomy-view covers above. The credit
+       cover is deliberately thin and stops right where the Home/back nav
+       buttons begin, so it only ever hides the faint title text sitting
+       above them and never touches the buttons themselves. */
+    #r-credit-cover {
+      position: absolute; top: 0; left: 0;
+      width: 24vw; height: 2.6vh;
+      background: #ffffff;
+      z-index: 500; pointer-events: none;
+    }
+    #r-share-cover {
+      position: absolute; top: 0; left: 62vw;
+      width: 17vw; height: 9vh;
+      background: radial-gradient(ellipse at 60% 30%, #ffffff 60%, rgba(255,255,255,0) 90%);
+      z-index: 500; pointer-events: none;
+    }
+    #r-toolbar-cover {
+      position: absolute; bottom: 0; left: 56vw;
+      width: 23vw; height: 10vh;
+      background: radial-gradient(ellipse at 65% 70%, #ffffff 60%, rgba(255,255,255,0) 90%);
+      z-index: 500; pointer-events: none;
+    }
+    #r-logo-cover {
+      position: absolute; bottom: 0; left: 0;
+      width: 7vw; height: 9vh;
+      background: radial-gradient(ellipse at 30% 70%, #ffffff 60%, rgba(255,255,255,0) 90%);
+      z-index: 500; pointer-events: none;
+    }
+    #retina-frame { width: 100%; height: 100%; border: none; display: block; }
+    #retina-recenter {
+      position: absolute; bottom: 80px; left: 50%; transform: translateX(-50%);
+      z-index: 100; padding: 9px 24px; border-radius: 100px;
+      border: 1.5px solid rgba(37,99,235,0.4); background: rgba(255,255,255,0.92);
+      color: rgba(15,23,42,0.75); font-family: 'DM Sans', sans-serif;
+      font-size: 12px; font-weight: 600; letter-spacing: 0.06em; cursor: pointer;
+      transition: all 0.25s; backdrop-filter: blur(12px); box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    }
+    #retina-recenter:hover { background: rgba(59,130,246,0.1); border-color: rgba(37,99,235,0.6); color: #1e293b; }
+    #retina-panel {
+      width: 400px; flex-shrink: 0; height: 100vh; overflow-y: auto;
+      background: rgba(250,250,252,0.98); border-left: 1px solid rgba(220,38,38,0.15);
+      padding: 110px 36px 60px;
+    }
+    #retina-panel::-webkit-scrollbar { width: 3px; }
+    #retina-panel::-webkit-scrollbar-thumb { background: rgba(220,38,38,0.2); border-radius: 2px; }
+    .rp-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; font-family: 'DM Mono', monospace; color: #dc2626; margin-bottom: 12px; }
+    .rp-heading { font-size: 30px; font-weight: 600; color: #0f172a; line-height: 1.12; margin-bottom: 14px; }
+    .rp-sub { font-size: 14px; color: rgba(15,23,42,0.55); line-height: 1.7; margin-bottom: 32px; padding-bottom: 28px; border-bottom: 1px solid rgba(220,38,38,0.12); }
+    .rp-tool { background: rgba(220,38,38,0.04); border: 1px solid rgba(220,38,38,0.15); border-radius: 14px; padding: 20px; margin-bottom: 12px; transition: all 0.22s; }
+    .rp-tool:hover { background: rgba(220,38,38,0.08); border-color: rgba(220,38,38,0.28); }
+    .rp-tool-name { font-size: 15px; font-weight: 600; color: #0f172a; margin-bottom: 6px; }
+    .rp-tool-desc { font-size: 13px; color: rgba(15,23,42,0.5); line-height: 1.58; }
+    .eye-only { transition: opacity 0.35s; }
+    .eye-only.hidden { opacity: 0; pointer-events: none; }
+    #eye-recenter {
+      position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%);
+      z-index: 5000; padding: 9px 24px; border-radius: 100px;
+      border: 1.5px solid rgba(37,99,235,0.4); background: rgba(255,255,255,0.92);
+      color: rgba(15,23,42,0.75); font-family: 'DM Sans', sans-serif;
+      font-size: 12px; font-weight: 600; letter-spacing: 0.06em; cursor: pointer;
+      transition: all 0.25s; backdrop-filter: blur(12px); box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    }
+    #eye-recenter:hover { background: rgba(59,130,246,0.1); border-color: rgba(37,99,235,0.6); color: #1e293b; }
+    #eye-panel {
+      position: fixed; top: 50%; right: -360px; width: 310px;
+      transform: translateY(-50%); z-index: 5000;
+      background: rgba(255,255,255,0.97); border: 1px solid rgba(15,23,42,0.1);
+      border-top: 3px solid #2563eb; border-radius: 16px; padding: 24px 22px 22px;
+      transition: right 0.45s cubic-bezier(0.23,1,0.32,1);
+      backdrop-filter: blur(24px); box-shadow: 0 8px 36px rgba(0,0,0,0.1);
+    }
+    #eye-panel.open { right: 20px; }
+    .close-btn {
+      position: absolute; top: 12px; right: 12px; width: 22px; height: 22px;
+      border-radius: 50%; background: rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.08);
+      color: rgba(15,23,42,0.35); cursor: pointer; font-size: 11px;
+      display: flex; align-items: center; justify-content: center; transition: all 0.18s;
+    }
+    .close-btn:hover { background: rgba(0,0,0,0.09); color: #0f172a; }
+    @keyframes panelFadeUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .p-animate { opacity: 0; animation: panelFadeUp 0.28s cubic-bezier(0.23,1,0.32,1) forwards; }
+    .p-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; font-family: 'DM Mono', monospace; margin-bottom: 6px; }
+    .p-title { font-size: 19px; font-weight: 600; color: #0f172a; line-height: 1.25; margin-bottom: 6px; }
+    .p-desc { font-size: 12px; color: rgba(15,23,42,0.62); line-height: 1.65; margin-bottom: 0; padding-bottom: 14px; }
+    .p-divider { border: none; border-top: 1px solid rgba(15,23,42,0.08); margin: 0 0 12px; }
+    .ep-tool {
+      background: rgba(15,23,42,0.025); border-left: 3px solid #2563eb;
+      border-top: none; border-right: none; border-bottom: none;
+      border-radius: 0 8px 8px 0; padding: 10px 14px; margin-bottom: 6px; transition: background 0.18s;
+    }
+    .ep-tool:last-child { margin-bottom: 0; }
+    .ep-tool:hover { background: rgba(37,99,235,0.06); }
+    .ep-tool-name { font-size: 13px; font-weight: 600; color: #0f172a; margin-bottom: 3px; }
+    .ep-tool-desc { font-size: 12px; color: rgba(15,23,42,0.62); line-height: 1.5; }
+    .ep-tool-links { display: flex; gap: 7px; margin-top: 9px; }
+    .ep-tool-link { font-size: 11px; font-family: 'DM Mono', monospace; letter-spacing: 0.05em; padding: 5px 12px; border-radius: 100px; text-decoration: none; transition: all 0.2s; font-weight: 600; }
+    .ep-tool-link.demo { border: 1px solid rgba(99,102,241,0.35); color: rgba(79,70,229,0.9); background: rgba(99,102,241,0.06); }
+    .ep-tool-link.demo:hover { background: rgba(99,102,241,0.14); border-color: rgba(79,70,229,0.5); color: #4f46e5; }
+    .ep-tool-link.explore { border: 1px solid rgba(37,99,235,0.35); color: rgba(29,78,216,0.9); background: rgba(37,99,235,0.06); }
+    .ep-tool-link.explore:hover { background: rgba(37,99,235,0.14); border-color: rgba(37,99,235,0.5); color: #1d4ed8; }
+
+    /* ── MODALITY VIEW ───────────────────────────────── */
+    #modality-bar {
+      position: fixed; top: 76px; left: 0; right: 0;
+      padding: 10px 40px; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;
+      z-index: 4500;
+    }
+    .modality-pill {
+      padding: 7px 16px; border-radius: 100px;
+      border: 1px solid rgba(15,23,42,0.15); background: rgba(255,255,255,0.9);
+      color: rgba(15,23,42,0.55); font-family: 'DM Sans', sans-serif;
+      font-size: 12px; font-weight: 600; letter-spacing: 0.04em; cursor: pointer;
+      transition: all 0.2s; backdrop-filter: blur(10px); box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+    .modality-pill:hover { background: rgba(37,99,235,0.07); color: rgba(15,23,42,0.8); border-color: rgba(37,99,235,0.3); }
+    .modality-pill.active { background: #1d4ed8; color: #ffffff; border-color: #1d4ed8; box-shadow: 0 2px 10px rgba(29,78,216,0.28); }
+    #api-frame {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%; border: none; z-index: 1;
+      transform: scale(0.8); transform-origin: center center;
+    }
+    #m-recenter {
+      position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%);
+      z-index: 5000; padding: 9px 24px; border-radius: 100px;
+      border: 1.5px solid rgba(37,99,235,0.4); background: rgba(255,255,255,0.92);
+      color: rgba(15,23,42,0.75); font-family: 'DM Sans', sans-serif;
+      font-size: 12px; font-weight: 600; letter-spacing: 0.06em; cursor: pointer;
+      transition: all 0.25s; backdrop-filter: blur(12px); box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    }
+    #m-recenter:hover { background: rgba(59,130,246,0.1); border-color: rgba(37,99,235,0.6); color: #1e293b; }
+    #cards {
+      position: fixed; top: 148px; right: 24px; bottom: 24px; width: 360px;
+      display: flex; flex-direction: column; gap: 10px; z-index: 5000;
+      overflow-y: auto; padding-right: 4px;
+    }
+    #cards::-webkit-scrollbar { width: 4px; }
+    #cards::-webkit-scrollbar-thumb { background: rgba(37,99,235,0.2); border-radius: 2px; }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(20px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes cardFadeUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .c-animate { opacity: 0; animation: cardFadeUp 0.28s cubic-bezier(0.23,1,0.32,1) forwards; }
+    .zone-card {
+      background: rgba(255,255,255,0.97); border: 1px solid rgba(15,23,42,0.1);
+      border-top: 3px solid #2563eb; border-radius: 14px; padding: 16px 18px;
+      backdrop-filter: blur(24px); box-shadow: 0 4px 18px rgba(0,0,0,0.07);
+      animation: slideIn 0.3s cubic-bezier(0.23,1,0.32,1);
+    }
+    .zone-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; font-family: 'DM Mono', monospace; margin-bottom: 10px; }
+    .zone-divider { border: none; border-top: 1px solid rgba(15,23,42,0.08); margin: 0 0 10px; }
+    .product {
+      background: rgba(15,23,42,0.025); border-left: 3px solid #2563eb;
+      border-top: none; border-right: none; border-bottom: none;
+      border-radius: 0 8px 8px 0; padding: 10px 14px; margin-bottom: 6px; transition: background 0.18s;
+    }
+    .product:hover { background: rgba(37,99,235,0.06); }
+    .product:last-child { margin-bottom: 0; }
+    .product-name { font-size: 13px; font-weight: 600; color: #0f172a; margin-bottom: 4px; }
+    .product-desc { font-size: 12px; color: rgba(15,23,42,0.62); line-height: 1.55; margin-top: 2px; }
+    .product-remark { font-size: 11px; color: rgba(15,23,42,0.45); margin-top: 4px; font-style: italic; }
+    .product-links { display: flex; gap: 7px; margin-top: 9px; flex-wrap: wrap; }
+    .product-link { font-size: 11px; font-family: 'DM Mono', monospace; letter-spacing: 0.05em; padding: 5px 12px; border-radius: 100px; text-decoration: none; transition: all 0.2s; font-weight: 600; }
+    .product-link-demo { border: 1px solid rgba(99,102,241,0.35); color: rgba(79,70,229,0.9); background: rgba(99,102,241,0.06); }
+    .product-link-demo:hover { background: rgba(99,102,241,0.14); border-color: rgba(79,70,229,0.5); color: #4f46e5; }
+    .product-link-explore { border: 1px solid rgba(37,99,235,0.35); color: rgba(29,78,216,0.9); background: rgba(37,99,235,0.06); }
+    .product-link-explore:hover { background: rgba(37,99,235,0.14); border-color: rgba(37,99,235,0.5); color: #1d4ed8; }
+
+    /* ════════════════════════════════════════════════════════════
+       MOBILE / RESPONSIVE LAYER
+       Desktop layout is unchanged; everything below only applies on
+       narrow screens. Side panels become bottom sheets, the retina
+       split-view stacks, iframes fill the screen, and the nav shrinks.
+       ════════════════════════════════════════════════════════════ */
+    @media (max-width: 768px) {
+      body { height: 100dvh; }
+
+      /* ── NAV: clear the notch / Dynamic Island, and keep an opaque band
+         across the top so nothing behind it can peek through. ── */
+      #nav {
+        padding: calc(env(safe-area-inset-top) + 10px) 14px 16px;
+        background: linear-gradient(to bottom, #fff 0%, #fff 62%, rgba(255,255,255,0) 100%);
+      }
+      #nav-tagline { display: none !important; }   /* no room beside the toggle on phones */
+      #view-toggle { padding: 3px; }
+      .toggle-option { padding: 8px 14px; font-size: 12px; }
+      #back-btn { font-size: 12px; }
+
+      /* The 0.8 down-scale + attribution cover are desktop-only tricks;
+         on mobile we let the model fill the viewport instead. */
+      #model-cover, #share-cover, #toolbar-cover, #logo-cover,
+      #r-credit-cover, #r-share-cover, #r-toolbar-cover, #r-logo-cover { display: none; }
+      /* Full-screen viewer on mobile; the model itself is zoomed out via the
+         Sketchfab camera API (see MOBILE_ZOOM in the script), not by scaling
+         the iframe — scaling the iframe would expose the viewer's own UI. */
+      #eye-frame, #api-frame { transform: none; }
+
+      /* ── ANATOMY: eye info panel → bottom sheet ── */
+      #eye-panel {
+        top: auto; bottom: 0; left: 0; right: 0;
+        width: 100%; max-height: 72dvh; overflow-y: auto;
+        transform: translateY(110%);
+        border-radius: 18px 18px 0 0; border-top-width: 3px;
+        padding: 22px 18px calc(22px + env(safe-area-inset-bottom));
+        transition: transform 0.4s cubic-bezier(0.23,1,0.32,1);
+      }
+      #eye-panel.open { transform: translateY(0); }
+      /* Don't let the floating hint sit on top of the open info sheet. */
+      #eye-panel.open ~ #hint { opacity: 0; }
+
+      /* ── ANATOMY: retina split-view → stacked (model on top, copy below) ── */
+      #retina-view { flex-direction: column; }
+      #retina-model { flex: none; height: 52dvh; width: 100%; }
+      #retina-panel {
+        width: 100%; height: auto; flex: 1; min-height: 0;
+        border-left: none; border-top: 1px solid rgba(220,38,38,0.15);
+        padding: 28px 20px calc(48px + env(safe-area-inset-bottom));
+      }
+      .rp-heading { font-size: 24px; }
+      #retina-recenter { bottom: auto; top: 14px; }
+
+      /* ── MODALITY: pill bar + cards panel → bottom sheet ── */
+      #modality-bar { top: 62px; padding: 8px 12px; gap: 6px; }
+      .modality-pill, #home-btn { padding: 6px 13px; font-size: 12px; }
+      #cards {
+        top: auto; left: 0; right: 0; bottom: 0;
+        width: 100%; max-height: 52dvh;
+        padding: 12px 14px calc(14px + env(safe-area-inset-bottom));
+        gap: 8px;
+        background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.85) 12%);
+      }
+
+      /* ── Recenter buttons ── */
+      /* Modality: tuck top-left under the pill rows so it's off the model. */
+      #m-recenter {
+        top: 196px; bottom: auto;
+        left: 14px; transform: none;
+      }
+      #eye-recenter { bottom: 24px; }
+
+      /* ── Hints: removed entirely on phones ── */
+      #hint, #m-hint { display: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SHARED NAV -->
+  <div id="nav">
+    <div class="nav-left">
+      <a id="home-btn" href="index.html">&#8592; Home</a>
+      <button id="back-btn" onclick="goBackToEye()">&#8592; Eye</button>
+    </div>
+    <div style="position:absolute; left:50%; transform:translateX(-50%);">
+      <div id="view-toggle">
+        <span class="toggle-option active" onclick="switchView('anatomy')">By Anatomy</span>
+        <span class="toggle-option" onclick="switchView('modality')">By Modality</span>
+      </div>
+    </div>
+    <div id="nav-tagline">AI Tools for Ophthalmology</div>
+  </div>
+
+  <!-- ═══ ANATOMY VIEW ════════════════════════════════════════ -->
+  <div id="anatomy-view">
+    <div id="canvas">
+      <div id="eye-view">
+        <div id="model-cover"></div>
+        <div id="share-cover"></div>
+        <div id="toolbar-cover"></div>
+        <div id="logo-cover"></div>
+        <iframe id="eye-frame"
+          src="https://sketchfab.com/models/1a23ab8f624e40a9a461d984f312b609/embed?autostart=1&autospin=0&scrollwheel=0&double_click=0&ui_theme=dark&ui_infos=0&ui_watermark=0&ui_watermark_link=0&ui_controls=0&ui_help=0&ui_settings=0&ui_inspector=0&ui_fullscreen=0&ui_vr=0&ui_ar=0&ui_annotations=0&transparent=1&preload=1"
+          allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true"
+          allow="autoplay; fullscreen; xr-spatial-tracking">
+        </iframe>
+      </div>
+      <div id="retina-view">
+        <div id="retina-model">
+          <div id="r-credit-cover"></div>
+          <div id="r-share-cover"></div>
+          <div id="r-toolbar-cover"></div>
+          <div id="r-logo-cover"></div>
+          <iframe id="retina-frame" src=""
+            allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true"
+            allow="autoplay; fullscreen; xr-spatial-tracking">
+          </iframe>
+          <button id="retina-recenter" onclick="recenterRetina()">&#x25C7; Recenter</button>
+        </div>
+        <div id="retina-panel">
+          <div class="rp-eyebrow">Retina</div>
+          <div class="rp-heading">Retinal AI<br>Research &amp; Trials</div>
+          <div class="rp-sub">From OCT biomarker quantification for AMD clinical trials to AI-powered drug discovery for inherited retinal dystrophy — building the infrastructure for evidence-based retinal medicine.</div>
+          <div class="rp-tool">
+            <div class="rp-tool-name">Clinical Trial Acceleration</div>
+            <div class="rp-tool-desc">An AI-assisted pipeline that grades, annotates, and quantifies retinal biomarkers — drusen volume and height, IRF, SRF, and PED — across 20,000+ OCT B-scans to accelerate early-stage AMD clinical trials. Pairs clinician review with AI to support trial design, subject recruitment, real-world evidence, and in-silico trials, making trials faster, cheaper, and more reproducible.</div>
+          </div>
+          <div class="rp-tool">
+            <div class="rp-tool-name">Drug Discovery</div>
+            <div class="rp-tool-desc">AI-powered drug discovery using TxGemma to identify and accelerate therapeutic candidates for inherited retinal dystrophy.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button id="eye-recenter" class="eye-only" onclick="recenterEye()">&#x25C7; Recenter</button>
+
+    <div id="eye-panel">
+      <button class="close-btn" onclick="recenterEye()">&#x2715;</button>
+      <div id="eye-panel-content"></div>
+    </div>
+
+    <div id="hint" class="eye-only">Drag to rotate &nbsp;&middot;&nbsp; Click markers to explore &nbsp;&middot;&nbsp; Recenter to reset view</div>
+  </div>
+
+  <!-- ═══ MODALITY VIEW ═══════════════════════════════════════ -->
+  <div id="modality-view" style="display:none">
+    <div id="modality-bar"></div>
+    <iframe id="api-frame" src=""
+      allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true"
+      allow="autoplay; fullscreen; xr-spatial-tracking">
+    </iframe>
+    <button id="m-recenter" onclick="recenterModalityEye()">&#x25C7; Recenter</button>
+    <div id="cards"></div>
+    <div id="m-hint">Select a modality above to see projects grouped by anatomy</div>
+  </div>
+
+  <script>
+  // ── VIEW SWITCHING ────────────────────────────────────────────
+  var modalityInitialized = false;
+
+  function switchView(view) {
+    var toggleOpts = document.querySelectorAll('#view-toggle .toggle-option');
+    // On phones only one 3D viewer can stay alive at a time — two at once
+    // exhausts Safari's memory and crashes the tab. So we tear down the other
+    // view's model(s) on each switch and rebuild on return. Desktop keeps both.
+    var mobile = window.matchMedia('(max-width: 768px)').matches;
+    if (view === 'anatomy') {
+      document.getElementById('anatomy-view').style.display = 'block';
+      document.getElementById('modality-view').style.display = 'none';
+      toggleOpts[0].classList.add('active');
+      toggleOpts[1].classList.remove('active');
+      document.getElementById('nav-tagline').style.display = '';
+      if (mobile) {
+        if (modalityInitialized) {
+          document.getElementById('api-frame').src = 'about:blank';
+          sfApi = null; modalityInitialized = false;
+        }
+        if (!eyeModelLoaded) { eyeModelLoaded = true; initEyeModel(); }
+      }
+    } else {
+      document.getElementById('anatomy-view').style.display = 'none';
+      document.getElementById('modality-view').style.display = 'block';
+      toggleOpts[0].classList.remove('active');
+      toggleOpts[1].classList.add('active');
+      document.getElementById('back-btn').classList.remove('show');
+      document.getElementById('nav-tagline').style.display = 'none';
+      if (mobile) {
+        document.getElementById('eye-frame').src = 'about:blank';
+        eyeApi = null; eyeModelLoaded = false;
+        if (retinaLoaded) {
+          document.getElementById('retina-frame').src = 'about:blank';
+          retinaApi = null; retinaLoaded = false;
+          document.getElementById('canvas').classList.remove('retina-active');
+          document.querySelectorAll('.eye-only').forEach(function(el){ el.classList.remove('hidden'); });
+        }
+      }
+      if (!modalityInitialized) { modalityInitialized = true; initSketchfab(); }
+    }
+  }
+
+  // ── ANATOMY JS ───────────────────────────────────────────────
+  var EYE_ZONES = {
+    cornea: {
+      label: 'Cornea', color: '#2563eb',
+      tagline: 'Primary refractive surface',
+      desc: 'AI-powered corneal analysis for precise mapping, early disease detection, and refractive surgical planning.',
+      tools: [
+        { name: 'Intelligent Surgery Decision Support Tool', desc: 'Pentacam intelligence for corneal surgery. Upload Pentacam scans. Get instant ectasia screening and surgical suitability analysis for LASIK, SMILE, PRK, ICL, and CXL.' }
+      ]
+    },
+    lens: {
+      label: 'Lens', color: '#4f46e5',
+      tagline: 'Cataract Treatment Assistive AI',
+      desc: 'Developed a surgical video AI that segments and tracks instruments frame-by-frame through cataract procedures, enabling surgical audit, trainee education, real-time intra-operative assistance, and a path towards automated robotic surgery.<br><br>Alongside this, we have developed a patient-facing AI assistant that guides individuals through their diagnosis, explains treatment options in plain language, and provides personalised recommendations — making the journey from slit-lamp assessment to surgical decision clearer for both clinician and patient.',
+      tools: []
+    },
+    vitreous: {
+      label: 'Vitreous Humor', color: '#7c3aed',
+      tagline: 'Posterior segment analysis',
+      desc: 'AI tools for vitreous pathology detection including hemorrhage staging and PVD classification.',
+      tools: [
+        { name: 'Frontier Watch', desc: 'Published research in 2024–25 has used deep learning on OCT biomarkers to predict visual recovery following vitrectomy for epiretinal membrane and macular hole surgery — a clinically meaningful and active area of investigation. We are interested in exploring vitreoretinal AI and would love to hear from surgeons and researchers working in this space. Reach out at ikites.ai/contact-us.' }
+      ]
+    },
+    optic: {
+      label: 'Optic Nerve', color: '#ea580c',
+      tagline: 'Glaucoma & disc analysis',
+      desc: 'Precision optic disc analysis for glaucoma risk stratification and structural progression monitoring.',
+      tools: [
+        { name: 'Research Work', desc: 'Multimodal analysis and multimodal dashboard in ophthalmology — integrating data across imaging modalities to surface clinically actionable insights from the optic nerve and surrounding structures.' }
+      ]
+    },
+    ora_serrata: {
+      label: 'Ora Serrata', color: '#059669',
+      tagline: 'Peripheral retina junction',
+      desc: 'AI-assisted analysis of the retina–ciliary body junction for peripheral lesions, breaks, and degenerative changes.',
+      tools: [
+        { name: 'Frontier Watch', desc: 'The ora serrata and peripheral retina remain one of the least AI-explored regions in ophthalmology — most validated models focus on the posterior pole. Ultra-widefield imaging is beginning to change this, with early work on automated detection of peripheral breaks and lattice degeneration. If you are working on wide-field retinal AI, we would love to hear from you. Connect with us at ikites.ai/contact-us.' }
+      ]
+    },
+    iris: {
+      label: 'Iris', color: '#0891b2',
+      tagline: 'Anterior segment intelligence',
+      desc: 'The iris sits at the frontier of AI-assisted anterior segment analysis.',
+      tools: [
+        { name: 'Frontier Watch', desc: 'Published research has demonstrated that automated grading of anterior chamber inflammation using AS-OCT images correlates significantly with clinical SUN grading scores — a meaningful step toward objective, standardized uveitis monitoring. AI analysis of iris structure is an emerging diagnostic channel we are actively interested in. Reach out at ikites.ai/contact-us.' }
+      ]
+    },
+    sclera: {
+      label: 'Sclera', color: '#0369a1',
+      tagline: 'Structural ocular analysis',
+      desc: 'Emerging AI applications are beginning to extract clinically meaningful signals from scleral imaging.',
+      tools: [
+        { name: 'Frontier Watch', desc: 'Studies using OCT and 3D modelling have established measurable correlations between anterior scleral thickness, axial length, and myopia severity. AI-assisted scleral analysis is early-stage but has clear clinical relevance for myopia progression monitoring. We are interested in building in this space and would welcome collaborators. Reach out at ikites.ai/contact-us.' }
+      ]
+    },
+    choroid: {
+      label: 'Choroid', color: '#7e22ce',
+      tagline: 'Vascular layer intelligence',
+      desc: 'Choroidal analysis is one of the most active frontiers in posterior segment AI.',
+      tools: [
+        { name: 'Frontier Watch', desc: 'AI-automated choroidal thickness segmentation from OCT is a validated and growing field — published studies from the Singapore National Eye Centre and others have demonstrated strong agreement between AI and manual segmentation, and machine learning models have predicted myopic macular degeneration risk a decade ahead using choroidal thickness as a key biomarker. This is a space we are actively building in. If you are working here, reach out at ikites.ai/contact-us.' }
+      ]
+    },
+    ciliary: {
+      label: 'Ciliary Body & Zonules', color: '#059669',
+      tagline: 'Accommodation and angle analysis',
+      desc: 'AI models of ciliary body behaviour are informing the next generation of IOL planning and glaucoma risk tools.',
+      tools: [
+        { name: 'Frontier Watch', desc: 'AI-based IOL power calculation formulas — including Hill-RBF and Kane — have been shown in peer-reviewed network meta-analyses to outperform traditional formulas in highly myopic eyes, and machine learning is increasingly applied to improve refractive outcomes in cataract and phakic IOL surgery. The ciliary body\'s role in accommodation also underpins next-generation accommodating IOL designs currently in human trials. We are interested in this clinical intersection. Connect with us at ikites.ai/contact-us.' }
+      ]
+    }
+  };
+
+  var EYE_MODEL_ID    = '1a23ab8f624e40a9a461d984f312b609';
+  var RETINA_MODEL_ID = '5f9d70509b404fae940aff265fce0ed0';
+
+  var eyeApi         = null;
+  var retinaApi      = null;
+  var eyeAnnotToZone = {};
+  var eyeInitCamPos  = null;
+  var eyeInitTarget  = null;
+  var retInitCamPos  = null;
+  var retInitTarget  = null;
+  var retinaLoaded   = false;
+  var eyeHomeLocked  = false;
+
+  var eyeModelLoaded = true;
+  function initEyeModel() {
+  eyeHomeLocked = false; eyeInitCamPos = null; eyeInitTarget = null;
+  var eyeClient = new Sketchfab('1.12.1', document.getElementById('eye-frame'));
+
+  eyeClient.init(EYE_MODEL_ID, {
+    success: function(api) {
+      eyeApi = api;
+      api.start();
+      api.addEventListener('viewerready', function() {
+        try { api.setAutoSpin(0); } catch(e) {}
+        api.getCameraLookAt(function(err, camera) {
+          if (err) return;
+          eyeInitCamPos = [camera.position[0], camera.position[1], camera.position[2]];
+          eyeInitTarget = [camera.target[0],   camera.target[1],   camera.target[2]];
+        });
+        api.getAnnotationList(function(err, annotations) {
+          if (err || !annotations) return;
+          annotations.forEach(function(ann, i) {
+            var name = (ann.name || ann.title || '').toLowerCase();
+            var zoneId = null;
+            if      (name.indexOf('cornea')   !== -1) zoneId = 'cornea';
+            else if (name.indexOf('lens')     !== -1) zoneId = 'lens';
+            else if (name.indexOf('vitreous') !== -1) zoneId = 'vitreous';
+            else if (name.indexOf('retina')   !== -1) zoneId = 'retina';
+            else if (name.indexOf('optic')    !== -1 ||
+                     name.indexOf('nerve')    !== -1) zoneId = 'optic';
+            else if (name.indexOf('iris')    !== -1) zoneId = 'iris';
+            else if (name.indexOf('sclera')  !== -1) zoneId = 'sclera';
+            else if (name.indexOf('choroid') !== -1) zoneId = 'choroid';
+            else if (name.indexOf('ciliary') !== -1) zoneId = 'ciliary';
+            if (zoneId) eyeAnnotToZone[i] = zoneId;
+          });
+          Object.keys(eyeAnnotToZone).forEach(function(k) {
+            if (eyeAnnotToZone[k] === 'vitreous') delete eyeAnnotToZone[k];
+          });
+          eyeAnnotToZone[8] = 'ora_serrata';
+          eyeAnnotToZone[9] = 'vitreous';
+          api.updateAnnotation(8, { title: 'Ora Serrata' }, function(err) {
+            if (err) console.warn('Could not rename annotation 8:', err);
+          });
+          var newZones = ['iris', 'sclera', 'choroid', 'ciliary'];
+          annotations.forEach(function(ann, i) {
+            if (newZones.length === 0) return;
+            if (typeof eyeAnnotToZone[i] === 'undefined') {
+              var zid = newZones.shift();
+              eyeAnnotToZone[i] = zid;
+              api.updateAnnotation(i, { title: EYE_ZONES[zid].label }, function(err) {
+                if (err) console.warn('Could not rename annotation ' + i + ':', err);
+              });
+            }
+          });
+          var centroid = [0, 0, 0];
+          var n = 0;
+          annotations.forEach(function(a, i) {
+            if (i === 9) return;
+            var p = a.target || a.position;
+            if (p && p.length === 3) { centroid[0] += p[0]; centroid[1] += p[1]; centroid[2] += p[2]; n++; }
+          });
+          if (n > 0) {
+            centroid = [centroid[0]/n, centroid[1]/n, centroid[2]/n];
+            api.updateAnnotation(9, { title: 'Vitreous Humor', target: centroid }, function(err) {
+              if (err) console.warn('Could not move annotation 9:', err);
+            });
+          } else {
+            api.updateAnnotation(9, { title: 'Vitreous Humor' });
+          }
+        });
+        api.addEventListener('annotationSelect', function(index) {
+          eyeHomeLocked = true;
+          var zoneId = eyeAnnotToZone[index];
+          if (zoneId === 'retina') { goToRetina(); }
+          else if (zoneId) { openEyePanel(zoneId); }
+          else { closeEyePanel(); }
+        });
+        function captureEyeHome() {
+          if (eyeHomeLocked) return;
+          api.getCameraLookAt(function(err, camera) {
+            if (err || eyeHomeLocked) return;
+            eyeInitCamPos = [camera.position[0], camera.position[1], camera.position[2]];
+            eyeInitTarget = [camera.target[0],   camera.target[1],   camera.target[2]];
+          });
+        }
+        setTimeout(captureEyeHome, 1500);
+        setTimeout(captureEyeHome, 3000);
+
+        // On phones: once the intro animation has settled, read the *stable*
+        // camera and pull it back so the whole eye fits the tall screen.
+        // MOBILE_ZOOM > 1 = further away / smaller eye; < 1 = closer / bigger.
+        // This becomes the locked home position, so Recenter respects it.
+        if (window.matchMedia('(max-width: 768px)').matches) {
+          setTimeout(function() {
+            api.getCameraLookAt(function(err, camera) {
+              if (err) return;
+              var MOBILE_ZOOM = 1.65;
+              var t = camera.target, p = camera.position;
+              eyeInitTarget = [t[0], t[1], t[2]];
+              eyeInitCamPos = [
+                t[0] + (p[0] - t[0]) * MOBILE_ZOOM,
+                t[1] + (p[1] - t[1]) * MOBILE_ZOOM,
+                t[2] + (p[2] - t[2]) * MOBILE_ZOOM
+              ];
+              eyeHomeLocked = true;
+              api.setCameraLookAt(eyeInitCamPos, eyeInitTarget, 1.0);
+            });
+          }, 2600);
+        }
+      });
+    },
+    error: function() { console.error('Eye model failed to load'); },
+    autostart:1, autospin:0, scrollwheel:0, double_click:0,
+    ui_theme:'dark', ui_infos:0, ui_watermark:0, ui_controls:0,
+    ui_help:0, ui_settings:0, ui_fullscreen:0, ui_annotations:0, transparent:1
+  });
+  }
+  initEyeModel();
+
+  function goToRetina() {
+    closeEyePanel();
+    document.querySelectorAll('.eye-only').forEach(function(el) { el.classList.add('hidden'); });
+    document.getElementById('back-btn').classList.add('show');
+    document.getElementById('nav-tagline').textContent = 'Retina — AI Tools';
+    document.getElementById('canvas').classList.add('retina-active');
+    if (!retinaLoaded) { retinaLoaded = true; setTimeout(loadRetinaModel, 400); }
+  }
+  function goBackToEye() {
+    document.getElementById('canvas').classList.remove('retina-active');
+    document.querySelectorAll('.eye-only').forEach(function(el) { el.classList.remove('hidden'); });
+    document.getElementById('back-btn').classList.remove('show');
+    document.getElementById('nav-tagline').textContent = 'AI Tools for Ophthalmology';
+  }
+  function loadRetinaModel() {
+    var retinaClient = new Sketchfab('1.12.1', document.getElementById('retina-frame'));
+    retinaClient.init(RETINA_MODEL_ID, {
+      success: function(api) {
+        retinaApi = api;
+        api.start();
+        api.addEventListener('viewerready', function() {
+          try { api.setAutoSpin(0); } catch(e) {}
+          api.getAnnotationList(function(err, annotations) {
+            if (err || !annotations) return;
+            annotations.forEach(function(_, i) { api.hideAnnotation(i, function(){}); });
+          });
+          setTimeout(function() {
+            api.getCameraLookAt(function(err, camera) {
+              if (err) return;
+              retInitCamPos = [camera.position[0], camera.position[1], camera.position[2]];
+              retInitTarget = [camera.target[0],   camera.target[1],   camera.target[2]];
+            });
+          }, 3000);
+        });
+      },
+      error: function() { console.error('Retina model failed to load'); },
+      autostart:1, autospin:0, scrollwheel:0, double_click:0,
+      ui_theme:'dark', ui_infos:0, ui_watermark:0, ui_annotations:0,
+      ui_controls:0, ui_help:0, ui_settings:0, ui_fullscreen:0, transparent:1
+    });
+  }
+  function recenterEye() {
+    if (!eyeApi || !eyeInitCamPos || !eyeInitTarget) return;
+    closeEyePanel();
+    eyeApi.setCameraLookAt(eyeInitCamPos, eyeInitTarget, 1.0);
+  }
+  function recenterRetina() {
+    if (retinaApi && retInitCamPos && retInitTarget) {
+      retinaApi.setCameraLookAt(retInitCamPos, retInitTarget, 1.0);
+    }
+  }
+  function openEyePanel(id) {
+    var z = EYE_ZONES[id];
+    if (!z) return;
+    var panel = document.getElementById('eye-panel');
+    panel.style.borderTopColor = z.color;
+    var toolsHtml = z.tools.map(function(t, ti) {
+      var linksHtml = '';
+      if (t.links && t.links.length) {
+        linksHtml = '<div class="ep-tool-links">' +
+          t.links.map(function(l, i) {
+            var cls = i === 0 ? 'demo' : 'explore';
+            var target = l.href !== '#' ? ' target="_blank" rel="noopener noreferrer"' : '';
+            return '<a class="ep-tool-link ' + cls + '" href="' + l.href + '"' + target + '>' + l.label + '</a>';
+          }).join('') + '</div>';
+      }
+      var toolDelay = 280 + ti * 80;
+      return '<div class="ep-tool p-animate" style="animation-delay:' + toolDelay + 'ms; border-left-color:' + z.color + '">' +
+             '<div class="ep-tool-name">' + t.name + '</div>' +
+             '<div class="ep-tool-desc">' + t.desc + '</div>' + linksHtml + '</div>';
+    }).join('');
+
+    document.getElementById('eye-panel-content').innerHTML =
+      '<div class="p-tag p-animate" style="color:' + z.color + '; animation-delay:0ms">' + z.label + '</div>' +
+      '<div class="p-title p-animate" style="animation-delay:80ms">' + z.tagline + '</div>' +
+      '<div class="p-desc p-animate" style="animation-delay:160ms">' + z.desc + '</div>' +
+      (toolsHtml ? '<hr class="p-divider p-animate" style="animation-delay:220ms">' + toolsHtml : '');
+
+    panel.classList.add('open');
+
+    document.getElementById('eye-panel-content').innerHTML =
+      document.getElementById('eye-panel-content').innerHTML
+        .replace(/ikites\.ai\/contact-us/g,
+          '<a href="https://www.ikites.ai/contact-us" target="_blank" rel="noopener noreferrer" style="color:#2563eb; font-weight:600; text-decoration:none;">ikites.ai/contact-us</a>');
+  }
+  function closeEyePanel() {
+    document.getElementById('eye-panel').classList.remove('open');
+  }
+
+  // ── MODALITY JS ──────────────────────────────────────────────
+  var ZONES = {
+    cornea:      { label: 'Cornea',      color: '#2563eb' },
+    lens:        { label: 'Lens',        color: '#4f46e5' },
+    vitreous:    { label: 'Vitreous',    color: '#7c3aed' },
+    ora_serrata: { label: 'Ora Serrata', color: '#059669' },
+    retina:      { label: 'Retina',      color: '#dc2626' },
+    optic:       { label: 'Optic Nerve', color: '#ea580c' }
+  };
+
+  var ZONE_ORDER = ['cornea','lens','vitreous','ora_serrata','retina','optic'];
+
+  var MODALITIES = [
+    { id: 'phone',       label: 'Phone' },
+    { id: 'slit-lamp',   label: 'Slit-lamp' },
+    { id: 'topographer', label: 'Topographer' },
+    { id: 'hvf',         label: 'HVF' },
+    { id: 'lsfg',        label: 'LSFG' },
+    { id: 'oct',         label: 'OCT' },
+    { id: 'octa',        label: 'OCTA' },
+    { id: 'vep-eeg',     label: 'VEP-EEG' },
+    { id: 'vis-oct',     label: 'Vis-OCT' },
+    { id: 'mri',         label: 'MRI' },
+    { id: 'video',       label: 'Video Analysis' },
+    { id: 'other',       label: 'Other' }
+  ];
+
+  var PROJECTS = [
+    { name: 'Corneal Blindness / AI Clinic / Oculomics',
+      modalities: [], zones: ['cornea'], remark: 'Corneal Ulcers, AAO AI' },
+    { name: 'Drug Discovery',
+      modalities: ['other'], zones: [],
+      desc: 'AI-powered drug discovery using TxGemma to identify and accelerate therapeutic candidates for inherited retinal dystrophy.' },
+    { name: 'AI Clinic',
+      modalities: ['other'], zones: [], remark: 'Cloud Telephony' },
+    { name: 'Patient Flow Optimisation',
+      modalities: ['other'], zones: [], remark: 'AI Voice-bot' },
+    { name: 'Intelligent Surgery Decision Support Tool',
+      modalities: ['topographer'], zones: ['cornea'],
+      desc: 'Pentacam intelligence for corneal surgery. Upload Pentacam scans. Get instant ectasia screening and surgical suitability analysis for LASIK, SMILE, PRK, ICL, and CXL.' },
+    { name: 'Research Work',
+      modalities: ['slit-lamp','topographer','hvf','lsfg','oct','octa','vep-eeg','vis-oct','mri','other'],
+      zones: ['retina','cornea','optic','lens','vitreous'],
+      desc: 'Multimodal analysis and multimodal dashboard in ophthalmology — integrating data across imaging modalities to surface clinically actionable insights from the optic nerve and surrounding structures.' },
+    { name: 'LLM Assistant for medical students',
+      modalities: ['other'], zones: [], remark: 'Broader, includes Ophthal' },
+    { name: 'Surgical Video Analysis',
+      modalities: ['video'], zones: ['lens'],
+      desc: 'Developed a surgical video AI that segments and tracks instruments frame-by-frame through cataract procedures, enabling surgical audit, trainee education, real-time intra-operative assistance, and a path towards automated robotic surgery.' },
+    { name: 'Brevity', modalities: [], zones: [] },
+    { name: 'Rehab (partial / fully blind)', modalities: [], zones: [] },
+    { name: 'Phone / AI Ophthalmoscope', modalities: ['phone'], zones: ['retina'] }
+  ];
+
+  var activeModality = null;
+  var mBar = document.getElementById('modality-bar');
+  MODALITIES.forEach(function(m) {
+    var b = document.createElement('button');
+    b.className = 'modality-pill';
+    b.dataset.modality = m.id;
+    b.textContent = m.label;
+    b.onclick = function() { selectModality(m.id); };
+    mBar.appendChild(b);
+  });
+
+  function selectModality(id) {
+    activeModality = (activeModality === id) ? null : id;
+    document.querySelectorAll('.modality-pill').forEach(function(p) {
+      p.classList.toggle('active', p.dataset.modality === activeModality);
+    });
+    renderCards();
+    applyAnnotVisibility();
+  }
+
+  function renderCards() {
+    var cards = document.getElementById('cards');
+    var hint  = document.getElementById('m-hint');
+    cards.innerHTML = '';
+    if (!activeModality) {
+      hint.style.display = 'block';
+      hint.textContent = 'Select a modality above to see projects grouped by anatomy';
+      return;
+    }
+    var spanning = [];
+    var byZone = {};
+    PROJECTS.forEach(function(p) {
+      if (p.modalities.indexOf(activeModality) === -1) return;
+      if (!p.zones.length) {
+        byZone['_unzoned'] = byZone['_unzoned'] || [];
+        byZone['_unzoned'].push(p);
+        return;
+      }
+      if (p.zones.length > 1) {
+        spanning.push(p);
+      } else {
+        var z = p.zones[0];
+        byZone[z] = byZone[z] || [];
+        byZone[z].push(p);
+      }
+    });
+    var hasContent = spanning.length || Object.keys(byZone).length;
+    if (!hasContent) {
+      hint.style.display = 'block';
+      hint.textContent = 'No projects use this modality yet.';
+      return;
+    }
+    hint.style.display = 'none';
+
+    spanning.forEach(function(p) {
+      var card = document.createElement('div');
+      card.className = 'zone-card';
+      card.style.borderTopColor = '#64748b';
+      card.style.borderColor = 'rgba(100,116,139,0.18)';
+      var zoneLabels = p.zones.map(function(zid) {
+        var m = ZONES[zid] || { label: zid, color: '#64748b' };
+        return '<span style="color:' + m.color + '; font-weight:700; font-size:10px; letter-spacing:0.12em; text-transform:uppercase; font-family:\'DM Mono\',monospace; margin-right:10px;">' + m.label + '</span>';
+      }).join('');
+      var linksHtml = '';
+      if (p.links && p.links.length) {
+        linksHtml = '<div class="product-links">' +
+          p.links.map(function(l, li) {
+            var cls = li === 0 ? 'product-link-demo' : 'product-link-explore';
+            return '<a class="product-link ' + cls + '" href="' + l.href + '" target="_blank" rel="noopener noreferrer">' + l.label + '</a>';
+          }).join('') + '</div>';
+      }
+      card.innerHTML =
+        '<div class="product-name c-animate" style="animation-delay:0ms; font-size:14px; margin-bottom:6px;">' + escapeHtml(p.name) + '</div>' +
+        '<div class="c-animate" style="animation-delay:60ms; margin-bottom:10px;">' + zoneLabels + '</div>' +
+        '<hr class="zone-divider c-animate" style="animation-delay:100ms">' +
+        (p.desc ? '<div class="product-desc c-animate" style="animation-delay:140ms">' + escapeHtml(p.desc) + '</div>' : '') +
+        (p.remark && !p.desc ? '<div class="product-remark c-animate" style="animation-delay:140ms">' + escapeHtml(p.remark) + '</div>' : '') +
+        (linksHtml ? '<div class="c-animate" style="animation-delay:180ms">' + linksHtml + '</div>' : '');
+      cards.appendChild(card);
+    });
+
+    var order = ZONE_ORDER.concat(['_unzoned']);
+    order.forEach(function(zoneId) {
+      if (!byZone[zoneId]) return;
+      var meta = ZONES[zoneId] || { label: 'Other / Cross-cutting', color: '#64748b' };
+      var card = document.createElement('div');
+      card.className = 'zone-card';
+      card.dataset.zone = zoneId;
+      card.style.borderTopColor = meta.color;
+      card.style.borderColor = hexAlpha(meta.color, 0.18);
+      var productsHtml = byZone[zoneId].map(function(p, pi) {
+        var delay = 120 + pi * 80;
+        var linksHtml = '';
+        if (p.links && p.links.length) {
+          linksHtml = '<div class="product-links">' +
+            p.links.map(function(l, li) {
+              var cls = li === 0 ? 'product-link-demo' : 'product-link-explore';
+              return '<a class="product-link ' + cls + '" href="' + l.href + '" target="_blank" rel="noopener noreferrer">' + l.label + '</a>';
+            }).join('') + '</div>';
+        }
+        return '<div class="product c-animate" style="animation-delay:' + delay + 'ms; border-left-color:' + meta.color + '">' +
+                 '<div class="product-name">' + escapeHtml(p.name) + '</div>' +
+                 (p.desc ? '<div class="product-desc">' + escapeHtml(p.desc) + '</div>' : '') +
+                 (p.remark && !p.desc ? '<div class="product-remark">' + escapeHtml(p.remark) + '</div>' : '') +
+                 linksHtml +
+               '</div>';
+      }).join('');
+      card.innerHTML =
+        '<div class="zone-tag c-animate" style="color:' + meta.color + '; animation-delay:0ms">' +
+          meta.label + ' &middot; ' + byZone[zoneId].length + '</div>' +
+        '<hr class="zone-divider c-animate" style="animation-delay:80ms">' +
+        productsHtml;
+      cards.appendChild(card);
+    });
+  }
+
+  function hexAlpha(hex, alpha) {
+    var h = hex.replace('#','');
+    var r = parseInt(h.substr(0,2),16);
+    var g = parseInt(h.substr(2,2),16);
+    var b = parseInt(h.substr(4,2),16);
+    return 'rgba(' + r + ',' + g + ',' + b + ',' + alpha + ')';
+  }
+
+  function escapeHtml(s) {
+    return String(s)
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+      .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+  }
+
+  var M_MODEL_UID     = '1a23ab8f624e40a9a461d984f312b609';
+  var sfApi           = null;
+  var annotZones      = [];
+  var totalAnnots     = 0;
+  var mEyeInitCamPos  = null;
+  var mEyeInitTarget  = null;
+  var mEyeHomeLocked  = false;
+
+  function recenterModalityEye() {
+    if (!sfApi || !mEyeInitCamPos || !mEyeInitTarget) return;
+    sfApi.setCameraLookAt(mEyeInitCamPos, mEyeInitTarget, 1.0);
+  }
+
+  function detectAnnotZone(ann, origIdx) {
+    if (origIdx === 8) return 'ora_serrata';
+    if (origIdx === 9) return 'vitreous';
+    var t = ((ann.name || '') + ' ' + (ann.title || '')).toLowerCase();
+    if (t.indexOf('cornea')  !== -1) return 'cornea';
+    if (t.indexOf('lens')    !== -1) return 'lens';
+    if (t.indexOf('vitreo')  !== -1) return 'vitreous';
+    if (t.indexOf('retina')  !== -1) return 'retina';
+    if (t.indexOf('optic')   !== -1 || t.indexOf('nerve') !== -1) return 'optic';
+    return null;
+  }
+
+  function computeActiveZones() {
+    if (!activeModality) return {};
+    var z = {};
+    PROJECTS.forEach(function(p) {
+      if (p.modalities.indexOf(activeModality) !== -1)
+        p.zones.forEach(function(zone) { z[zone] = true; });
+    });
+    return z;
+  }
+
+  function hideAllAnnotations() {
+    if (!sfApi) return;
+    for (var i = 0; i < totalAnnots; i++) { sfApi.hideAnnotation(i, function() {}); }
+  }
+
+  function applyAnnotVisibility() {
+    if (!sfApi || !totalAnnots) return;
+    var activeZones = computeActiveZones();
+    for (var i = 0; i < totalAnnots; i++) {
+      var zone = annotZones[i];
+      if (zone && activeZones[zone]) {
+        sfApi.showAnnotation(i, function() {});
+      } else {
+        sfApi.hideAnnotation(i, function() {});
+      }
+    }
+  }
+
+  function highlightCard(zoneId) {
+    var cards = document.getElementById('cards');
+    var meta = ZONES[zoneId];
+    if (!meta) return;
+    cards.querySelectorAll('.zone-card').forEach(function(card) {
+      if (card.dataset.zone === zoneId) {
+        card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        card.style.transition = 'box-shadow 0.2s';
+        card.style.boxShadow = '0 0 0 2px ' + meta.color;
+        setTimeout(function() { card.style.boxShadow = ''; }, 900);
+      }
+    });
+  }
+
+  function initSketchfab() {
+    mEyeHomeLocked = false; mEyeInitCamPos = null; mEyeInitTarget = null;
+    var iframe = document.getElementById('api-frame');
+    var client = new Sketchfab('1.12.1', iframe);
+    client.init(M_MODEL_UID, {
+      success: function(api) {
+        sfApi = api;
+        api.start();
+        api.addEventListener('viewerready', function() {
+          try { api.setAutoSpin(0); } catch(e) {}
+          api.getCameraLookAt(function(err, camera) {
+            if (err) return;
+            mEyeInitCamPos = [camera.position[0], camera.position[1], camera.position[2]];
+            mEyeInitTarget = [camera.target[0],   camera.target[1],   camera.target[2]];
+          });
+          api.getAnnotationList(function(err, list) {
+            if (!err && list) {
+              totalAnnots = list.length;
+              annotZones  = list.map(function(a, i) { return detectAnnotZone(a, i); });
+            }
+            hideAllAnnotations();
+            if (activeModality) applyAnnotVisibility();
+          });
+          api.addEventListener('annotationSelect', function(index) {
+            mEyeHomeLocked = true;
+            var zone = annotZones[index];
+            if (zone) highlightCard(zone);
+          });
+          function captureMEyeHome() {
+            if (mEyeHomeLocked) return;
+            api.getCameraLookAt(function(err, camera) {
+              if (err || mEyeHomeLocked) return;
+              mEyeInitCamPos = [camera.position[0], camera.position[1], camera.position[2]];
+              mEyeInitTarget = [camera.target[0],   camera.target[1],   camera.target[2]];
+            });
+          }
+          setTimeout(captureMEyeHome, 1500);
+          setTimeout(captureMEyeHome, 3000);
+
+          // On phones: once the intro settles, pull the camera back so the
+          // whole model fits the tall screen (mirrors the anatomy view).
+          if (window.matchMedia('(max-width: 768px)').matches) {
+            setTimeout(function() {
+              api.getCameraLookAt(function(err, camera) {
+                if (err) return;
+                var MOBILE_ZOOM = 1.65;
+                var t = camera.target, p = camera.position;
+                mEyeInitTarget = [t[0], t[1], t[2]];
+                mEyeInitCamPos = [
+                  t[0] + (p[0] - t[0]) * MOBILE_ZOOM,
+                  t[1] + (p[1] - t[1]) * MOBILE_ZOOM,
+                  t[2] + (p[2] - t[2]) * MOBILE_ZOOM
+                ];
+                mEyeHomeLocked = true;
+                api.setCameraLookAt(mEyeInitCamPos, mEyeInitTarget, 1.0);
+              });
+            }, 2600);
+          }
+        });
+      },
+      error: function() { console.error('[iKites] Sketchfab load failed'); },
+      autostart: 1, autospin: 0, scrollwheel: 0, double_click: 0,
+      ui_theme: 'dark', ui_infos: 0, ui_watermark: 0, ui_watermark_link: 0,
+      ui_controls: 0, ui_help: 0, ui_settings: 0, ui_inspector: 0,
+      ui_fullscreen: 0, ui_vr: 0, ui_ar: 0, ui_annotations: 0, transparent: 1, preload: 1
+    });
+  }
+  </script>
+</body>
+</html>
