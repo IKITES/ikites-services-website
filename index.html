@@ -72,10 +72,7 @@
         <a class="nav__link" href="#product-line">Products</a>
         <a class="nav__link" href="team.html">Team</a>
       </nav>
-      <div class="nav__actions">
-        <a class="btn btn--primary btn--sm btn--viewer" href="3d-viewer.html">3D Viewer</a>
-        <a class="btn btn--primary btn--sm" href="connect.html">Connect with us</a>
-      </div>
+      <a class="btn btn--primary btn--sm" href="connect.html">Connect with us</a>
       <button class="nav-toggle" type="button" aria-label="Toggle menu" aria-expanded="false">
         <span class="material-symbols-outlined" aria-hidden="true">menu</span>
       </button>
@@ -83,180 +80,114 @@
   </header>
 
   <main id="top">
-    <!-- ============================ HERO ============================ -->
-    <section class="hero hero--enter">
-      <div class="container hero__grid">
-        <div class="hero__content">
-          <h1 class="display-xl hero__title">
-            <span class="sr-only">AI &amp; Deep-Tech Engineering — </span>We translate ideas<br />into <span class="accent">reality.</span>
-          </h1>
-          <p class="body-lg hero__lead">
-            A technology-led innovation company. We carry bold ideas — from researchers
-            and innovators alike — across the gap to the market, turning invention into
-            innovation that ships and gets used.
+    <!-- ============================ KITES INTRO STORY (hero + innovation) ============================ -->
+    <section class="kl-story" id="kl-story" aria-label="iKITES introduction">
+      <div class="kl-story-shell" id="kl-story-shell">
+
+        <article class="kl-landing-panel">
+          <div class="kl-landing-copy">
+            <p class="kl-eyebrow"><span></span>Human insight. Machine precision.</p>
+            <h1>Advancing eye care through<br />responsible intelligence.</h1>
+            <p class="kl-landing-summary">
+              Our core purpose is innovation — deep-tech, leveraging and translating
+              research from academia. Incorporated in 2023 by Dipinder Sekhon and
+              Vishal Singh, iKITES brings decades of technology leadership and
+              entrepreneurial experience to Artificial Intelligence, from agentic and
+              generative AI to computer vision, robotics and edge-AI, built for clients
+              across India, North America and, increasingly, Europe. What began as
+              engineering services and innovation consulting has grown into active
+              entrepreneurial partnership on IP, product-market fit and fund-raising,
+              with ophthalmic AI now a major focus through our Visionary AI venture.
+            </p>
+            <div class="kl-landing-actions">
+              <a class="btn btn--primary" href="connect.html">Connect with us</a>
+            </div>
+          </div>
+
+          <div class="kl-pillars" aria-label="The KITES founding thought: Knowledge, Innovation, Technology, Eco, System">
+            <div class="kl-pillar">
+              <span class="kl-pillar-letter">K</span>
+              <span class="kl-pillar-label">Knowledge</span>
+            </div>
+            <div class="kl-pillar kl-pillar--active">
+              <span class="kl-pillar-letter">I</span>
+              <span class="kl-pillar-label" id="kl-source-word">Innovation</span>
+            </div>
+            <div class="kl-pillar">
+              <span class="kl-pillar-letter">T</span>
+              <span class="kl-pillar-label">Technology</span>
+            </div>
+            <div class="kl-pillar">
+              <span class="kl-pillar-letter">E</span>
+              <span class="kl-pillar-label">Eco</span>
+            </div>
+            <div class="kl-pillar">
+              <span class="kl-pillar-letter">S</span>
+              <span class="kl-pillar-label">System</span>
+            </div>
+          </div>
+
+          <div class="kl-scroll-note" aria-hidden="true">
+            <span>Scroll to explore</span>
+            <i></i>
+          </div>
+        </article>
+
+        <article class="kl-innovation-panel" aria-label="Innovation at iKITES">
+          <p class="kl-innovation-intro">
+            At the heart of iKITES
+            <span>Ideas become clinical progress.</span>
           </p>
-          <div class="hero__actions">
-            <a class="btn btn--primary" href="connect.html">Connect with us</a>
+
+          <div class="kl-innovation-center">
+            <span class="kl-section-index">02 / 02</span>
+            <h2 id="kl-target-word">Innovation</h2>
+            <p>Where rigorous science meets useful technology.</p>
           </div>
-        </div>
 
-        <div class="hero__visual">
-          <div class="hero__panel">
-            <svg class="bridge-art" viewBox="0 0 400 360" xmlns="http://www.w3.org/2000/svg"
-                 xmlns:xlink="http://www.w3.org/1999/xlink" role="img"
-                 aria-label="Line-art bridge. On the left, a web of research nodes labelled R-and-d, Discovery. On the right, a market skyline labelled r-and-D, Delivery. iKITES is the span between them: a glowing idea lifts off the research side, crosses the bridge, and lands deployed in the market.">
-              <defs>
-                <linearGradient id="brGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stop-color="#1C8D90" />
-                  <stop offset="100%" stop-color="#0C3B5F" />
-                </linearGradient>
-                <filter id="brGlow" x="-80%" y="-80%" width="260%" height="260%">
-                  <feGaussianBlur stdDeviation="3.5" result="b" />
-                  <feComposite in="SourceGraphic" in2="b" operator="over" />
-                </filter>
-                <radialGradient id="brSpark" cx="50%" cy="50%" r="50%">
-                  <stop offset="0%" stop-color="#3FE0E0" />
-                  <stop offset="100%" stop-color="#1C8D90" />
-                </radialGradient>
-              </defs>
-
-              <!-- ===== Banks / abutments the bridge lands on ===== -->
-              <g opacity="1">
-                <animate attributeName="opacity" from="0" to="1" begin="0.1s" dur="0.6s" fill="freeze" />
-                <rect x="14" y="250" width="34" height="26" rx="3" fill="none" stroke="url(#brGrad)" stroke-width="2.5" />
-                <rect x="352" y="250" width="34" height="26" rx="3" fill="none" stroke="url(#brGrad)" stroke-width="2.5" />
-                <!-- water / the gap being spanned -->
-                <g stroke="#1C8D90" stroke-width="1.6" stroke-linecap="round" opacity="0.4" fill="none">
-                  <path d="M150 300 q11 -7 22 0 t22 0" />
-                  <path d="M205 312 q11 -7 22 0 t22 0" />
-                  <path d="M168 324 q11 -7 22 0 t22 0" />
-                </g>
-              </g>
-
-              <!-- ===== Deck (the roadway) ===== -->
-              <g>
-                <path d="M40 248 L360 248" fill="none" stroke="url(#brGrad)" stroke-width="3.5"
-                      stroke-linecap="round" stroke-dasharray="320" stroke-dashoffset="320">
-                  <animate attributeName="stroke-dashoffset" from="320" to="0" begin="0.3s" dur="1.0s"
-                           calcMode="spline" keyTimes="0;1" keySplines="0.22 1 0.36 1" fill="freeze" />
-                </path>
-                <line x1="42" y1="254" x2="358" y2="254" stroke="#0C3B5F" stroke-width="1.6" opacity="1">
-                  <animate attributeName="opacity" from="0" to="1" begin="1.1s" dur="0.5s" fill="freeze" />
-                </line>
-              </g>
-
-              <!-- ===== Towers ===== -->
-              <g opacity="1" stroke="#0C3B5F" stroke-linecap="round" fill="none">
-                <animate attributeName="opacity" from="0" to="1" begin="0.5s" dur="0.6s" fill="freeze" />
-                <line x1="132" y1="108" x2="132" y2="272" stroke-width="3.5" />
-                <line x1="268" y1="108" x2="268" y2="272" stroke-width="3.5" />
-                <!-- saddle caps -->
-                <line x1="124" y1="118" x2="140" y2="118" stroke-width="3" />
-                <line x1="260" y1="118" x2="276" y2="118" stroke-width="3" />
-              </g>
-
-              <!-- ===== Main cable (draws itself in) + hangers ===== -->
-              <g>
-                <path d="M40 248 Q68 172 132 118 Q200 176 268 118 Q332 172 360 248" fill="none"
-                      stroke="url(#brGrad)" stroke-width="2.5" stroke-linecap="round"
-                      stroke-dasharray="470" stroke-dashoffset="470">
-                  <animate attributeName="stroke-dashoffset" from="470" to="0" begin="0.8s" dur="1.3s"
-                           calcMode="spline" keyTimes="0;1" keySplines="0.22 1 0.36 1" fill="freeze" />
-                </path>
-                <g opacity="1" stroke="#1C8D90" stroke-width="1.4">
-                  <animate attributeName="opacity" from="0" to="1" begin="1.6s" dur="0.6s" fill="freeze" />
-                  <line x1="70"  y1="191" x2="70"  y2="248" />
-                  <line x1="100" y1="152" x2="100" y2="248" />
-                  <line x1="168" y1="143" x2="168" y2="248" />
-                  <line x1="200" y1="149" x2="200" y2="248" />
-                  <line x1="232" y1="143" x2="232" y2="248" />
-                  <line x1="300" y1="152" x2="300" y2="248" />
-                  <line x1="330" y1="191" x2="330" y2="248" />
-                </g>
-              </g>
-
-              <!-- ===== Left world: research web (R&d / Discovery) ===== -->
-              <g opacity="1">
-                <animate attributeName="opacity" from="0" to="1" begin="1.0s" dur="0.7s" fill="freeze" />
-                <g stroke="#1C8D90" stroke-width="1.4" opacity="0.6">
-                  <line x1="52" y1="96"  x2="86" y2="74"  />
-                  <line x1="86" y1="74"  x2="108" y2="106" />
-                  <line x1="52" y1="96"  x2="72" y2="122" />
-                  <line x1="72" y1="122" x2="98" y2="118" />
-                  <line x1="86" y1="74"  x2="98" y2="118" />
-                  <line x1="108" y1="106" x2="98" y2="118" />
-                </g>
-                <g fill="#fff" stroke="#1C8D90" stroke-width="2.2">
-                  <circle cx="52"  cy="96"  r="5" />
-                  <circle cx="86"  cy="74"  r="5.5" />
-                  <circle cx="108" cy="106" r="5" />
-                  <circle cx="72"  cy="122" r="4.5" />
-                  <circle cx="98"  cy="118" r="5.5" />
-                </g>
-              </g>
-
-              <!-- ===== Right world: market skyline (r&D / Delivery) ===== -->
-              <g opacity="1">
-                <animate attributeName="opacity" from="0" to="1" begin="1.1s" dur="0.7s" fill="freeze" />
-                <line x1="292" y1="130" x2="368" y2="130" stroke="#1C8D90" stroke-width="1.6" />
-                <g fill="none" stroke="url(#brGrad)" stroke-width="2.4" stroke-linejoin="round">
-                  <rect x="300" y="98" width="16" height="32" rx="2.5" />
-                  <rect x="320" y="70" width="16" height="60" rx="2.5" />
-                  <rect x="340" y="86" width="16" height="44" rx="2.5" />
-                </g>
-              </g>
-
-              <!-- ===== Upright labels ===== -->
-              <g font-family="'Montserrat', sans-serif">
-                <g opacity="1">
-                  <animate attributeName="opacity" from="0" to="1" begin="1.3s" dur="0.7s" fill="freeze" />
-                  <text x="22" y="172" text-anchor="start" fill="#0C3B5F" font-weight="800" letter-spacing="-0.01em">
-                    <tspan font-size="32">R</tspan><tspan font-size="20" dy="2">&amp;d</tspan>
-                  </text>
-                  <text x="23" y="189" text-anchor="start" fill="#1C8D90" font-family="'IBM Plex Mono', monospace"
-                        font-size="11" font-weight="600" letter-spacing="0.14em">DISCOVERY</text>
-                </g>
-                <g opacity="1">
-                  <animate attributeName="opacity" from="0" to="1" begin="1.6s" dur="0.7s" fill="freeze" />
-                  <text x="378" y="172" text-anchor="end" fill="#0C3B5F" font-weight="800" letter-spacing="-0.01em">
-                    <tspan font-size="20">r&amp;</tspan><tspan font-size="32">D</tspan>
-                  </text>
-                  <text x="378" y="189" text-anchor="end" fill="#1C8D90" font-family="'IBM Plex Mono', monospace"
-                        font-size="11" font-weight="600" letter-spacing="0.14em">DELIVERY</text>
-                </g>
-                <!-- span label, beneath the deck -->
-                <g opacity="1">
-                  <animate attributeName="opacity" from="0" to="1" begin="1.9s" dur="0.7s" fill="freeze" />
-                  <text x="200" y="272" text-anchor="middle" fill="#00696c" font-family="'IBM Plex Mono', monospace"
-                        font-size="12.5" font-weight="700" letter-spacing="0.24em">iKITES</text>
-                </g>
-              </g>
-
-              <!-- ===== The idea: lifts off research, crosses the deck, lands in market ===== -->
-              <path id="brTrip" d="M98 116 Q54 200 44 244 L356 244 Q350 150 328 74" fill="none" stroke="none" />
-              <!-- departure pulse over the research web -->
-              <circle cx="98" cy="116" r="5" fill="none" stroke="#1FA7A6" stroke-width="2" opacity="0">
-                <animate attributeName="r" values="5;16" begin="2.0s" dur="4s" repeatCount="indefinite" />
-                <animate attributeName="opacity" values="0.7;0" begin="2.0s" dur="4s" repeatCount="indefinite" />
-              </circle>
-              <!-- the travelling idea -->
-              <circle r="6" fill="url(#brSpark)" filter="url(#brGlow)" opacity="0">
-                <animate attributeName="opacity" values="0;1;1;1;0" keyTimes="0;0.08;0.5;0.92;1"
-                         begin="2.0s" dur="4s" repeatCount="indefinite" />
-                <animateMotion begin="2.0s" dur="4s" repeatCount="indefinite"
-                               calcMode="spline" keyTimes="0;1" keySplines="0.45 0 0.55 1">
-                  <mpath xlink:href="#brTrip" />
-                </animateMotion>
-              </circle>
-              <!-- landing pulse on the tallest tower of the market -->
-              <circle cx="328" cy="72" r="5" fill="none" stroke="#1FA7A6" stroke-width="2" opacity="0">
-                <animate attributeName="r" values="5;18" begin="5.6s" dur="4s" repeatCount="indefinite" />
-                <animate attributeName="opacity" values="0.8;0" begin="5.6s" dur="4s" repeatCount="indefinite" />
-              </circle>
-            </svg>
+          <div class="kl-innovation-node kl-node--one">
+            <span>01</span>
+            <h3>Ophthalmology</h3>
+            <p>Clinical insight, translated into clearer decisions.</p>
           </div>
-          <p class="label-md hero__caption text-muted">A bridge for ideas — from lab and venture to market.</p>
-        </div>
+
+          <div class="kl-innovation-node kl-node--two">
+            <span>02</span>
+            <h3>Ethics</h3>
+            <p>
+              Our innovation is guided by our shared principles of adding value to
+              society and viewing profit as charity. With this spirit of innovation,
+              Dipinder Sekhon and Vishal Singh came together, bringing decades of
+              technological leadership and a shared vision for changing healthcare
+              with AI.
+            </p>
+          </div>
+
+          <div class="kl-innovation-node kl-node--three">
+            <span>03</span>
+            <h3>Visionary AI</h3>
+            <p>Advanced AI products for Ophthalmology.</p>
+          </div>
+
+          <div class="kl-innovation-node kl-node--four">
+            <span>04</span>
+            <h3>From Research to Industry</h3>
+            <p>
+              It bridges the gap between academia and industry and brings new
+              high-tech solutions from rigorous academic research.
+            </p>
+            <img class="kl-innovation-node-image" src="assets/img/bridge.png" alt="" aria-hidden="true" />
+          </div>
+
+          <div class="kl-innovation-footer">
+            <p>Designed with clinicians. Built for meaningful care.</p>
+            <a href="connect.html">
+              Start a conversation
+              <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </article>
+
       </div>
     </section>
 
@@ -461,65 +392,6 @@
       </div>
     </section>
 
-    <!-- ============================ FOUNDING THOUGHT (impact band) ============================ -->
-    <section class="statement reveal">
-      <div class="container">
-        <span class="eyebrow">The Founding Thought</span>
-        <h2 class="sr-only">iKITES — Knowledge, Innovation, Technology, Eco, System.</h2>
-        <svg class="kites-acrostic" viewBox="0 0 600 360" xmlns="http://www.w3.org/2000/svg" role="img"
-             aria-label="The name iKITES is an acrostic: Knowledge, Innovation, Technology, Eco, System — illustrated with a flying kite.">
-          <defs>
-            <linearGradient id="kiteFill" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stop-color="#1C8D90" />
-              <stop offset="100%" stop-color="#0C3B5F" />
-            </linearGradient>
-          </defs>
-
-          <!-- string tying the kite to the words -->
-          <path d="M484 98 Q 300 46 72 64" fill="none" stroke="#78f6f5" stroke-width="1.4"
-                stroke-dasharray="3 7" stroke-linecap="round" opacity="0.4" />
-
-          <!-- the kite: flies in, then gently bobs -->
-          <g transform="translate(484,98)">
-            <g opacity="1">
-              <animateTransform attributeName="transform" type="translate" values="0 0; 0 -7; 0 0"
-                                dur="6s" repeatCount="indefinite" />
-              <g>
-                <animateTransform attributeName="transform" type="rotate" values="-5 0 0; 4 0 0; -5 0 0"
-                                  dur="6s" repeatCount="indefinite" />
-                <path d="M0 -36 L26 0 L0 42 L-26 0 Z" fill="url(#kiteFill)" stroke="#78f6f5" stroke-width="2" />
-                <line x1="0" y1="-36" x2="0" y2="42" stroke="#78f6f5" stroke-width="1.1" opacity="0.7" />
-                <line x1="-26" y1="0" x2="26" y2="0" stroke="#78f6f5" stroke-width="1.1" opacity="0.7" />
-                <!-- tail with bows -->
-                <path d="M0 42 q 12 15 2 29 q -10 14 2 27 q 12 13 2 25" fill="none"
-                      stroke="#1fa7a6" stroke-width="2" stroke-linecap="round" />
-                <g fill="#91f2f5">
-                  <path d="M3 71 l6 6 -6 6 -6 -6 z" />
-                  <path d="M5 98 l5.5 5.5 -5.5 5.5 -5.5 -5.5 z" />
-                  <path d="M7 124 l5 5 -5 5 -5 -5 z" />
-                </g>
-              </g>
-            </g>
-          </g>
-
-          <!-- acrostic: K I T E S -->
-          <g class="kites-rows" font-family="'Montserrat', sans-serif">
-            <g><text x="56" y="74"><tspan font-size="48" font-weight="800" fill="#7ef0f0">K</tspan><tspan font-size="27" font-weight="600" fill="#eaf7f8" dx="1">nowledge</tspan></text></g>
-            <g><text x="56" y="138"><tspan font-size="48" font-weight="800" fill="#7ef0f0">I</tspan><tspan font-size="27" font-weight="600" fill="#eaf7f8" dx="1">nnovation</tspan></text></g>
-            <g><text x="56" y="202"><tspan font-size="48" font-weight="800" fill="#7ef0f0">T</tspan><tspan font-size="27" font-weight="600" fill="#eaf7f8" dx="1">echnology</tspan></text></g>
-            <g><text x="56" y="266"><tspan font-size="48" font-weight="800" fill="#7ef0f0">E</tspan><tspan font-size="27" font-weight="600" fill="#eaf7f8" dx="1">co</tspan></text></g>
-            <g><text x="56" y="330"><tspan font-size="48" font-weight="800" fill="#7ef0f0">S</tspan><tspan font-size="27" font-weight="600" fill="#eaf7f8" dx="1">ystem</tspan></text></g>
-          </g>
-        </svg>
-        <p>
-          iKITES brings together academia, startups, industry leaders, and domain experts
-          to solve complex problems and drive breakthrough advances. A for-profit deep-tech
-          innovation partner founded in 2023 — starting with AI today, and expanding into
-          deeper technologies over time.
-        </p>
-      </div>
-    </section>
-
     <!-- ============================ INDUSTRIES ============================ -->
     <section class="section reveal">
       <div class="container section-head section-head--center">
@@ -576,5 +448,8 @@
     </div>
   </footer>
   <script src="assets/js/main.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="assets/js/kites-story.js" defer></script>
 </body>
 </html>
