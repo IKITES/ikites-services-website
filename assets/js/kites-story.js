@@ -19,6 +19,8 @@
   var siteHeader = document.querySelector('.site-header');
   var headerOffset = siteHeader ? siteHeader.offsetHeight : 74;
 
+  story.classList.add('kl-js-enabled');
+
   var mm = gsap.matchMedia();
 
   mm.add(
