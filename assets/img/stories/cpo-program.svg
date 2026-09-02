@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" role="img" aria-label="Abstract product leadership program">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b3a5e"/><stop offset="1" stop-color="#06243d"/>
+    </linearGradient>
+  </defs>
+  <rect width="320" height="200" fill="url(#bg)"/>
+  <g fill="none" stroke-width="2.5">
+    <polygon points="160,150 250,120 160,90 70,120" stroke="#0e5a5c"/>
+    <polygon points="160,120 250,90 160,60 70,90" stroke="#1C8D90"/>
+    <polygon points="160,90 250,60 160,30 70,60" stroke="#3FE0E0"/>
+  </g>
+  <circle cx="160" cy="60" r="9" fill="#91f2f5"/>
+  <g stroke="#3FE0E0" stroke-width="1.5" opacity="0.6">
+    <line x1="160" y1="69" x2="160" y2="86"/>
+  </g>
+</svg>
